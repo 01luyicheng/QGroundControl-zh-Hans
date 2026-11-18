@@ -1,0 +1,151 @@
+name: Release zh-Hans
+
+# Push a tag like zh-v1.28.8 to build Linux AppImage + Windows installer and publish a zh-Hans release.
+on:
+  push:
+    tags:
+      - 'zh-v*'
+  workflow_dispatch:
+
+concurrency:
+  group: release-zh-${{ github.ref_name }}
+  cancel-in-progress: false
+
+permissions:
+  contents: write   # gh release create uploads assets
+
+jobs:
+  linux:
+    name: Linux x86_64 AppImage
+    runs-on: ubuntu-24.04
+    timeout-minutes: 150
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      # fetch-depth 0: the package version comes from git describe (qgc-package FATAL_ERRORs on 0.0.0)
+      - name: Checkout repo
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      # Repo-owned composite actions: CMake/Ninja, Python env, Qt 6.12.0 (cached, public mirrors)
+      - name: Build Setup
+        uses: ./.github/actions/build-setup
+        with:
+          qt-host: linux
+          qt-arch: linux_gcc_64
+          build-type: Release
+
+      - name: Install Dependencies
+        uses: ./.github/actions/install-dependencies
+
+      - name: Configure
+        uses: ./.github/actions/cmake-configure
+        with:
+          preset: Linux
+
+      - name: Build
+        uses: ./.github/actions/cmake-build
+
+      # Same as upstream linux.yml's Create AppImage step
+      - name: Create AppImage
+        working-directory: ${{ runner.temp }}/build
+        run: cmake --install . --config Release
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: QGroundControl-x86_64
+          path: ${{ runner.temp }}/build/QGroundControl-*.AppImage
+          if-no-files-found: error
+
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          TAG: ${{ github.ref_name }}
+        run: |
+          notes="${RUNNER_TEMP}/release-notes.md"
+          cat > "$notes" <<EOF
+          QGroundControl 简体中文汉化版(非官方构建)
+
+          - 上游:https://github.com/mavlink/qgroundcontrol
+          - 本仓库在上游基础上完善 zh_CN 翻译,并为部分硬编码 UI 字符串补充了 qsTr()/tr() 包裹;详见 README.zh-CN.md
+          - Linux:下载 AppImage,chmod +x 后直接运行
+          EOF
+          appimage=$(ls "$RUNNER_TEMP"/build/QGroundControl-*.AppImage | head -n1)
+          gh release create "$TAG" --title "QGroundControl zh-Hans $TAG" \
+            --notes-file "$notes" \
+            "$appimage"
+
+  windows:
+    name: Windows amd64 Installer
+    runs-on: windows-2022    # hosted image ships MSVC 2022 and NSIS; no install-dependencies needed
+    timeout-minutes: 150
+    defaults:
+      run:
+        shell: cmd
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0     # package version comes from git describe and requires reachable tags
+          persist-credentials: false
+
+      - name: Build Setup
+        id: build-setup
+        uses: ./.github/actions/build-setup
+        with:
+          qt-host: windows
+          qt-arch: win64_msvc2022_64
+          build-type: Release
+
+      - name: Configure
+        uses: ./.github/actions/cmake-configure
+        with:
+          preset: Windows
+          extra-args: >-
+            -DQGC_BUILD_PORTABLE_TESTS=OFF
+            -DQGC_ENABLE_GST_VIDEOSTREAMING=ON
+            -DQGC_CPACK_GENERATOR=NSIS
+
+      - name: Build
+        uses: ./.github/actions/cmake-build
+
+      # Same as upstream windows.yml's Create Installer step
+      - name: Create Installer
+        uses: ./.github/actions/cmake-build
+        with:
+          target: qgc-package
+          parallel: 'false'
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: QGroundControl-installer-AMD64
+          path: ${{ runner.temp }}/build/QGroundControl-installer-*.exe
+          if-no-files-found: error
+
+      - name: Create GitHub Release
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          TAG: ${{ github.ref_name }}
+        run: |
+          notes="${RUNNER_TEMP}/release-notes.md"
+          cat > "$notes" <<EOF
+          QGroundControl 简体中文汉化版(非官方构建)
+
+          - 上游:https://github.com/mavlink/qgroundcontrol
+          - 本仓库在上游基础上完善 zh_CN 翻译,并为部分硬编码 UI 字符串补充了 qsTr()/tr() 包裹;详见 README.zh-CN.md
+          - Windows:下载 QGroundControl-installer-AMD64.exe 安装(未签名,SmartScreen 提示时选择保留即可)
+          EOF
+          installer=$(ls "$RUNNER_TEMP"/build/QGroundControl-installer-*.exe | head -n1)
+          gh release create "$TAG" --title "QGroundControl zh-Hans $TAG" \
+            --notes-file "$notes" \
+            "$installer"

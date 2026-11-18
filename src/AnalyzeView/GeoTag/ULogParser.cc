@@ -4,6 +4,8 @@
 
 #include <cmath>
 
+#include <QCoreApplication>
+
 QGC_LOGGING_CATEGORY(ULogParserLog, "AnalyzeView.ULogParser")
 
 namespace ULogParser {
@@ -69,7 +71,7 @@ bool getTagsFromLog(const char *data, qint64 size, QList<GeoTagData> &cameraFeed
     }
 
     if (cameraFeedback.isEmpty()) {
-        errorMessage = QStringLiteral("Could not detect camera_capture packets in ULog");
+        errorMessage = QCoreApplication::translate("ULogParser", "Could not detect camera_capture packets in ULog");
         return false;
     }
 
