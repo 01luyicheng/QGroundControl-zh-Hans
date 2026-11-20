@@ -24,6 +24,31 @@
 
 首次启动后在 应用设置 → General → Language 中选择简体中文。
 
+### 3. 中国大陆改版默认值
+
+为适配国内使用，本版默认值与上游不同：
+
+| 项目 | 上游默认 | 本版默认 | 说明 |
+|---|---|---|---|
+| 地图提供商 | Bing（国内不可访问，会白屏） | **天地图 (TianDiTu)** | 中国官方地图服务，国内可正常访问 |
+| 地图类型 | Hybrid | **Road（道路图）** | 天地图只有 Road/Satellite，无 Hybrid |
+| 界面语言 | 跟随系统 | **简体中文** | 首次启动即中文 |
+
+#### 天地图 Token 申请
+
+天地图需要 API Token 才能显示地图。**首次启动后请务必按以下步骤设置：**
+
+1. 打开 QGC → 右上角齿轮 → **General → Maps**
+2. 在 **Tokens** 区块找到 **TianDiTu Token** 输入框
+3. 去 [天地图开放平台](https://lbs.tianditu.gov.cn) 注册账号，在「开发资源」→「Key 管理」中申请一个免费 Key（类型选「地图服务」，配额默认 30 万/天，足够日常使用）
+4. 把 Key 粘贴到 TianDiTu Token 输入框，重启 QGC 即可正常显示地图
+
+> **重要**：Token 缺失时天地图瓦片为空，地图区域会显示白屏（与 Bing 国内白屏现象相同）。填入 Token 前请勿误以为软件有 bug。
+
+#### 地图切换
+
+如需使用其他地图（Bing、Google、Mapbox、Esri、VWorld 等），在 **General → Maps → Map Provider** 下拉框切换即可。这些海外地图在国内可能访问受限。
+
 ## 构建
 
 本仓库使用上游自带的 composite actions 构建(Qt 6.12)。推 `zh-v*` 格式的 tag 会触发 `release-zh.yml` 自动构建 Linux AppImage 与 Windows 安装包并发布 Release。

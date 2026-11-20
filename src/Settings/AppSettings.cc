@@ -415,7 +415,7 @@ QLocale::Language AppSettings::_qLocaleLanguageEarlyAccess(void)
     }
 #endif
 
-    localeLanguage = QLocale::AnyLanguage;
+    localeLanguage = QLocale::Chinese;
     settings.setValue(qLocaleLanguageName, localeLanguage);
 
     return localeLanguage;
