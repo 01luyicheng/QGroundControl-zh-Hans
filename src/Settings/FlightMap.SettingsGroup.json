@@ -6,7 +6,7 @@
             "name": "mapProvider",
             "shortDesc": "Currently selected map provider for flight maps",
             "type": "string",
-            "default": "TianDiTu",
+            "default": "Street",
             "label": "Currently selected map provider for flight maps",
             "keywords": "3d map"
         },
@@ -14,7 +14,7 @@
             "name": "mapType",
             "shortDesc": "Currently selected map type for flight maps",
             "type": "string",
-            "default": "Road",
+            "default": "Map",
             "label": "Currently selected map type for flight maps"
         },
         {

@@ -9,7 +9,7 @@
   - 术语错误:「点式车辆」→「载具指向」、UTM「时区」→「投影带」、摇杆「水平」→「偏航」、直升机「集体稳定曲线」→「总距稳定曲线」
   - 机翻破碎:「内部错误:呼叫车辆_requestNextMission…」等
   - 占位符被篡改、「值: %1%」凭空多百分号、译文混入 `&apos;s`、零宽字符、繁体混入等
-- 批量补翻 450 条高可见度条目(工具栏状态词、链路/电池告警、规划视图、遥控器校准、RTK 诊断、日志查看器等),未翻译比例从 58% 降至约 48%。
+- 批量补翻 755 条高可见度条目(两轮:450 条工具栏/链路/电池/规划/校准/RTK/日志,305 条蓝牙/机架固件插件/云台/电调/安全组件等),未翻译条数从约 2386 条降至约 1644 条。
 
 ### 2. i18n 改造
 - 为 25 处未包裹翻译函数的用户可见字符串补上 `qsTr()`(QML)/ `tr()` / `QCoreApplication::translate()`(C++),涉及 VehicleConfigView、BluetoothSettings、ParameterEditorController、MAVLinkProtocol、QGCMapEngineManager、FirmwareImage 等。
@@ -24,28 +24,20 @@
 
 首次启动后在 应用设置 → General → Language 中选择简体中文。
 
-### 3. 中国大陆改版默认值
+### 3. 中国大陆改版默认值（开箱即用，无需申请API）
 
-为适配国内使用，本版默认值与上游不同：
+为适配国内使用，本版默认值与上游不同，默认即可用，无需申请任何 API Key：
 
 | 项目 | 上游默认 | 本版默认 | 说明 |
 |---|---|---|---|
-| 地图提供商 | Bing（国内不可访问，会白屏） | **天地图 (TianDiTu)** | 中国官方地图服务，国内可正常访问 |
-| 地图类型 | Hybrid | **Road（道路图）** | 天地图只有 Road/Satellite，无 Hybrid |
+| 地图提供商 | Bing（国内不可访问，会白屏） | **OpenStreetMap（免费，无需Token）** | 国际开源地图，国内可访问，无需 Token |
+| 地图类型 | Hybrid | **Map（道路图）** | OpenStreetMap 道路图 |
 | 界面语言 | 跟随系统 | **简体中文** | 首次启动即中文 |
 
-#### 天地图 Token 申请
+#### 地图选择
 
-天地图需要 API Token 才能显示地图。**首次启动后请务必按以下步骤设置：**
-
-1. 打开 QGC → 右上角齿轮 → **General → Maps**
-2. 在 **Tokens** 区块找到 **TianDiTu Token** 输入框
-3. 去 [天地图开放平台](https://lbs.tianditu.gov.cn) 注册账号，在「开发资源」→「Key 管理」中申请一个免费 Key（类型选「地图服务」，配额默认 30 万/天，足够日常使用）
-4. 把 Key 粘贴到 TianDiTu Token 输入框，重启 QGC 即可正常显示地图
-
-> **重要**：Token 缺失时天地图瓦片为空，地图区域会显示白屏（与 Bing 国内白屏现象相同）。填入 Token 前请勿误以为软件有 bug。
-
-#### 地图切换
+- **OpenStreetMap（默认）**：免费、无需 Token，国内可访问，开箱即用。
+- **天地图 (TianDiTu)**：中国官方地图，国内访问质量更好，但需要免费 API Token。如需使用，去 [天地图开放平台](https://lbs.tianditu.gov.cn) 申请免费 Key，填入 **General → Maps → TianDiTu Token**，然后将 Map Provider 切换为 TianDiTu。
 
 如需使用其他地图（Bing、Google、Mapbox、Esri、VWorld 等），在 **General → Maps → Map Provider** 下拉框切换即可。这些海外地图在国内可能访问受限。
 
