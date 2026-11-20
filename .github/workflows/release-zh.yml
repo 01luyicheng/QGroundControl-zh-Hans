@@ -93,6 +93,7 @@ jobs:
 
   windows:
     name: Windows amd64 Installer
+    needs: linux            # serialize release creation; windows uploads to the release linux created
     runs-on: windows-2022    # hosted image ships MSVC 2022 and NSIS; no install-dependencies needed
     timeout-minutes: 150
     defaults:
