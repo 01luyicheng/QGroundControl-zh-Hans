@@ -581,7 +581,7 @@
     <message>
       <location filename="../src/AnalyzeView/LogViewer/APMDataFlash/APMDataFlashLogParser.cc" line="136"/>
       <source>Fence Failsafe</source>
-      <translation>围栏故障保护</translation>
+      <translation>地理围栏故障保护</translation>
     </message>
     <message>
       <location filename="../src/AnalyzeView/LogViewer/APMDataFlash/APMDataFlashLogParser.cc" line="137"/>
@@ -731,12 +731,12 @@
       <location filename="../src/AnalyzeView/LogViewer/APMDataFlash/APMDataFlashLogParser.cc" line="191"/>
       <location filename="../src/AnalyzeView/LogViewer/APMDataFlash/APMDataFlashLogParser.cc" line="226"/>
       <source>Failsafe Resolved</source>
-      <translation>Failsafe Resolved</translation>
+      <translation>失控保护已解除</translation>
     </message>
     <message>
       <location filename="../src/AnalyzeView/LogViewer/APMDataFlash/APMDataFlashLogParser.cc" line="188"/>
       <source>Failsafe Triggered</source>
-      <translation>Failsafe Triggered</translation>
+      <translation>触发失控保护</translation>
     </message>
     <message>
       <location filename="../src/AnalyzeView/LogViewer/APMDataFlash/APMDataFlashLogParser.cc" line="192"/>
@@ -841,7 +841,7 @@
     <message>
       <location filename="../src/AnalyzeView/LogViewer/APMDataFlash/APMDataFlashLogParser.cc" line="231"/>
       <source>RTL invoked</source>
-      <translation>RTL invoked</translation>
+      <translation>已触发返航</translation>
     </message>
     <message>
       <location filename="../src/AnalyzeView/LogViewer/APMDataFlash/APMDataFlashLogParser.cc" line="234"/>
@@ -856,7 +856,7 @@
     <message>
       <location filename="../src/AnalyzeView/LogViewer/APMDataFlash/APMDataFlashLogParser.cc" line="238"/>
       <source>RTL restarted</source>
-      <translation>RTL restarted</translation>
+      <translation>返航已重启</translation>
     </message>
     <message>
       <location filename="../src/AnalyzeView/LogViewer/APMDataFlash/APMDataFlashLogParser.cc" line="239"/>
@@ -871,7 +871,7 @@
     <message>
       <location filename="../src/AnalyzeView/LogViewer/APMDataFlash/APMDataFlashLogParser.cc" line="241"/>
       <source>RTL missing rangefinder</source>
-      <translation>RTL missing rangefinder</translation>
+      <translation>返航时缺少测距仪</translation>
     </message>
     <message>
       <location filename="../src/AnalyzeView/LogViewer/APMDataFlash/APMDataFlashLogParser.cc" line="244"/>
@@ -916,12 +916,12 @@
     <message>
       <location filename="../src/AnalyzeView/LogViewer/APMDataFlash/APMDataFlashLogParser.cc" line="272"/>
       <source>Armed</source>
-      <translation>Armed</translation>
+      <translation>已解锁</translation>
     </message>
     <message>
       <location filename="../src/AnalyzeView/LogViewer/APMDataFlash/APMDataFlashLogParser.cc" line="273"/>
       <source>Disarmed</source>
-      <translation>Disarmed</translation>
+      <translation>已上锁</translation>
     </message>
     <message>
       <location filename="../src/AnalyzeView/LogViewer/APMDataFlash/APMDataFlashLogParser.cc" line="274"/>
@@ -941,7 +941,7 @@
     <message>
       <location filename="../src/AnalyzeView/LogViewer/APMDataFlash/APMDataFlashLogParser.cc" line="277"/>
       <source>Lost GPS</source>
-      <translation>Lost GPS</translation>
+      <translation>丢失 GPS</translation>
     </message>
     <message>
       <location filename="../src/AnalyzeView/LogViewer/APMDataFlash/APMDataFlashLogParser.cc" line="278"/>
@@ -1500,22 +1500,22 @@
     <message>
       <location filename="../src/AutoPilotPlugins/APM/APMFailsafesComponentSummary.qml" line="75"/>
       <source>Batt1 low failsafe:</source>
-      <translation>Batt1 low failsafe:</translation>
+      <translation>电池 1 低电量失控保护：</translation>
     </message>
     <message>
       <location filename="../src/AutoPilotPlugins/APM/APMFailsafesComponentSummary.qml" line="81"/>
       <source>Batt1 critical failsafe:</source>
-      <translation>Batt1 critical failsafe:</translation>
+      <translation>电池 1 严重低电量失控保护：</translation>
     </message>
     <message>
       <location filename="../src/AutoPilotPlugins/APM/APMFailsafesComponentSummary.qml" line="87"/>
       <source>Batt2 low failsafe:</source>
-      <translation>Batt2 low failsafe:</translation>
+      <translation>电池 2 低电量失控保护：</translation>
     </message>
     <message>
       <location filename="../src/AutoPilotPlugins/APM/APMFailsafesComponentSummary.qml" line="93"/>
       <source>Batt2 critical failsafe:</source>
-      <translation>Batt2 critical failsafe:</translation>
+      <translation>电池 2 严重低电量失控保护：</translation>
     </message>
   </context>
   <context>
@@ -1533,7 +1533,7 @@
     <message>
       <location filename="../src/AutoPilotPlugins/APM/APMFailsafesComponentSummarySub.qml" line="36"/>
       <source>Battery failsafe:</source>
-      <translation>Battery failsafe:</translation>
+      <translation>电池失控保护：</translation>
     </message>
     <message>
       <location filename="../src/AutoPilotPlugins/APM/APMFailsafesComponentSummarySub.qml" line="49"/>
@@ -1554,6 +1554,16 @@
       <location filename="../src/AutoPilotPlugins/APM/APMFailsafesComponentSummarySub.qml" line="62"/>
       <source>Int. Pressure failsafe:</source>
       <translation>Int. Pressure failsafe:</translation>
+    </message>
+      <message>
+      <location filename="../src/AutoPilotPlugins/APM/APMFailsafesComponentSummarySub.qml" line="39"/>
+      <source>Firmware not supported</source>
+      <translation>不支持的固件</translation>
+    </message>
+      <message>
+      <location filename="../src/AutoPilotPlugins/APM/APMFailsafesComponentSummarySub.qml" line="42"/>
+      <source>Disabled</source>
+      <translation>已禁用</translation>
     </message>
   </context>
   <context>
@@ -1637,7 +1647,7 @@
     <message>
       <location filename="../src/FirmwarePlugin/APM/APMFirmwarePlugin.h" line="89"/>
       <source>RTL</source>
-      <translation>RTL</translation>
+      <translation>返航</translation>
     </message>
     <message>
       <location filename="../src/FirmwarePlugin/APM/APMFirmwarePlugin.h" line="90"/>
@@ -3334,6 +3344,16 @@ Click Ok to start calibration.</source>
       <source>Ready</source>
       <translation>就绪</translation>
     </message>
+      <message>
+      <location filename="../src/AutoPilotPlugins/APM/APMSensorsComponentSummary.qml" line="43"/>
+      <source>, External</source>
+      <translation>，外部</translation>
+    </message>
+      <message>
+      <location filename="../src/AutoPilotPlugins/APM/APMSensorsComponentSummary.qml" line="43"/>
+      <source>, Internal</source>
+      <translation>，内部</translation>
+    </message>
   </context>
   <context>
     <name>APMServoComponent</name>
@@ -3449,6 +3469,41 @@ Click Ok to start calibration.</source>
       <location filename="../src/AutoPilotPlugins/APM/APMSubFrameComponentSummary.qml" line="57"/>
       <source>Git Revision</source>
       <translation>Git 修订版</translation>
+    </message>
+      <message>
+      <location filename="../src/AutoPilotPlugins/APM/APMSubFrameComponentSummary.qml" line="21"/>
+      <source>BlueROV1</source>
+      <translation>BlueROV1</translation>
+    </message>
+      <message>
+      <location filename="../src/AutoPilotPlugins/APM/APMSubFrameComponentSummary.qml" line="23"/>
+      <source>Vectored/BlueROV2</source>
+      <translation>Vectored/BlueROV2</translation>
+    </message>
+      <message>
+      <location filename="../src/AutoPilotPlugins/APM/APMSubFrameComponentSummary.qml" line="25"/>
+      <source>Vectored 6DOF</source>
+      <translation>Vectored 6DOF</translation>
+    </message>
+      <message>
+      <location filename="../src/AutoPilotPlugins/APM/APMSubFrameComponentSummary.qml" line="27"/>
+      <source>Vectored 6DOF 90Degree</source>
+      <translation>Vectored 6DOF 90Degree</translation>
+    </message>
+      <message>
+      <location filename="../src/AutoPilotPlugins/APM/APMSubFrameComponentSummary.qml" line="29"/>
+      <source>SimpleROV-3</source>
+      <translation>SimpleROV-3</translation>
+    </message>
+      <message>
+      <location filename="../src/AutoPilotPlugins/APM/APMSubFrameComponentSummary.qml" line="31"/>
+      <source>SimpleROV-4</source>
+      <translation>SimpleROV-4</translation>
+    </message>
+      <message>
+      <location filename="../src/AutoPilotPlugins/APM/APMSubFrameComponentSummary.qml" line="33"/>
+      <source>SimpleROV-5</source>
+      <translation>SimpleROV-5</translation>
     </message>
   </context>
   <context>
@@ -5182,6 +5237,11 @@ Click Ok to start the auto-tuning process.
       <source>Scan for Devices</source>
       <translation>Scan for Devices</translation>
     </message>
+      <message>
+      <location filename="../src/AppSettings/BluetoothSettings.qml" line="471"/>
+      <source>%1 [Connected]</source>
+      <translation>%1 [已连接]</translation>
+    </message>
   </context>
   <context>
     <name>BluetoothWorker</name>
@@ -6137,6 +6197,16 @@ Click Ok to start the auto-tuning process.
       <source>The ESP8266 WiFi Bridge Component is used to setup the WiFi link.</source>
       <translation>ESP8266 WiFi 桥接组件用于设置 WiFi 链接。</translation>
     </message>
+      <message>
+      <location filename="../src/AutoPilotPlugins/Common/ESP8266Component.qml" line="136"/>
+      <source>Access Point Mode</source>
+      <translation>接入点模式</translation>
+    </message>
+      <message>
+      <location filename="../src/AutoPilotPlugins/Common/ESP8266Component.qml" line="136"/>
+      <source>Station Mode</source>
+      <translation>站点模式</translation>
+    </message>
   </context>
   <context>
     <name>ESP8266ComponentSummary</name>
@@ -6683,6 +6753,11 @@ Click Ok to start the auto-tuning process.
       <source>Restart application for changes to take effect.</source>
       <translation>重启应用程序以使更改生效。</translation>
     </message>
+      <message>
+      <location filename="../src/FactSystem/Fact.cc" line="362"/>
+      <source>Not value selected</source>
+      <translation>未选择值</translation>
+    </message>
   </context>
   <context>
     <name>FactMetaData</name>
@@ -6895,6 +6970,21 @@ Click Ok to start the auto-tuning process.
       <location filename="../src/Vehicle/VehicleSetup/FirmwareImage.cc" line="424"/>
       <source>Unabled to open firmware file %1, %2</source>
       <translation>无法打开固件文件%1，%2</translation>
+    </message>
+      <message>
+      <location filename="../src/Vehicle/VehicleSetup/FirmwareImage.cc" line="44"/>
+      <source>Unsupported file format</source>
+      <translation>不支持的文件格式</translation>
+    </message>
+      <message>
+      <location filename="../src/Vehicle/VehicleSetup/FirmwareImage.cc" line="110"/>
+      <source>Incorrectly formatted .ihx file, line does not begin with :</source>
+      <translation>格式不正确的 .ihx 文件，行未以 : 开头</translation>
+    </message>
+      <message>
+      <location filename="../src/Vehicle/VehicleSetup/FirmwareImage.cc" line="352"/>
+      <source>Firmware file missing %1 key</source>
+      <translation>固件文件缺少 %1 键</translation>
     </message>
   </context>
   <context>
@@ -8129,12 +8219,12 @@ VTOL</translation>
     <message>
       <location filename="../src/MissionManager/GeoFenceController.cc" line="137"/>
       <source>GeoFence polygon not stored as object</source>
-      <translation>多边形围栏没有作为对象存储</translation>
+      <translation>多边形地理围栏没有作为对象存储</translation>
     </message>
     <message>
       <location filename="../src/MissionManager/GeoFenceController.cc" line="151"/>
       <source>GeoFence circle not stored as object</source>
-      <translation>圆形围栏没有作为对象存储</translation>
+      <translation>圆形地理围栏没有作为对象存储</translation>
     </message>
   </context>
   <context>
@@ -8147,7 +8237,7 @@ VTOL</translation>
     <message>
       <location filename="../src/PlanView/GeoFenceEditor.qml" line="56"/>
       <source>GeoFencing allows you to set a virtual fence around the area you want to fly in.</source>
-      <translation>地理栅栏允许你在你想飞入的区域周围设置虚拟栅栏。</translation>
+      <translation>地理围栏允许你在你想飞入的区域周围设置虚拟围栏。</translation>
     </message>
     <message>
       <location filename="../src/PlanView/GeoFenceEditor.qml" line="57"/>
@@ -8162,17 +8252,17 @@ VTOL</translation>
     <message>
       <location filename="../src/PlanView/GeoFenceEditor.qml" line="112"/>
       <source>Polygon Fence</source>
-      <translation>多边形围栏</translation>
+      <translation>多边形地理围栏</translation>
     </message>
     <message>
       <location filename="../src/PlanView/GeoFenceEditor.qml" line="124"/>
       <source>Circular Fence</source>
-      <translation>圆形围栏</translation>
+      <translation>圆形地理围栏</translation>
     </message>
     <message>
       <location filename="../src/PlanView/GeoFenceEditor.qml" line="138"/>
       <source>Polygon Fences</source>
-      <translation>多边形围栏</translation>
+      <translation>多边形地理围栏</translation>
     </message>
     <message>
       <location filename="../src/PlanView/GeoFenceEditor.qml" line="142"/>
@@ -8207,7 +8297,7 @@ VTOL</translation>
     <message>
       <location filename="../src/PlanView/GeoFenceEditor.qml" line="213"/>
       <source>Circular Fences</source>
-      <translation>圆形围栏</translation>
+      <translation>圆形地理围栏</translation>
     </message>
     <message>
       <location filename="../src/PlanView/GeoFenceEditor.qml" line="269"/>
@@ -11281,6 +11371,26 @@ VTOL</translation>
       <source>Reset Zoom</source>
       <translation>重置缩放</translation>
     </message>
+      <message>
+      <location filename="../src/AnalyzeView/LogViewer/LogViewerChart.qml" line="553"/>
+      <source>mode</source>
+      <translation>模式</translation>
+    </message>
+    <message>
+      <location filename="../src/AnalyzeView/LogViewer/LogViewerChart.qml" line="553"/>
+      <source>event</source>
+      <translation>事件</translation>
+    </message>
+    <message>
+      <location filename="../src/AnalyzeView/LogViewer/LogViewerChart.qml" line="553"/>
+      <source>error</source>
+      <translation>错误</translation>
+    </message>
+    <message>
+      <location filename="../src/AnalyzeView/LogViewer/LogViewerChart.qml" line="553"/>
+      <source>warning</source>
+      <translation>警告</translation>
+    </message>
   </context>
   <context>
     <name>LogViewerController</name>
@@ -11460,6 +11570,21 @@ VTOL</translation>
       <location filename="../src/AnalyzeView/LogViewer/LogViewerPage.qml" line="489"/>
       <source>Failed to start telemetry replay for the selected .tlog file.</source>
       <translation>无法启动所选 .tlog 文件的遥测回放。</translation>
+    </message>
+      <message>
+      <location filename="../src/AnalyzeView/LogViewer/LogViewerPage.qml" line="117"/>
+      <source>DataFlash Logs (*.bin *.BIN *.log *.LOG)</source>
+      <translation>DataFlash 日志（*.bin *.BIN *.log *.LOG）</translation>
+    </message>
+      <message>
+      <location filename="../src/AnalyzeView/LogViewer/LogViewerPage.qml" line="125"/>
+      <source>PX4 ULog Files (*.ulg *.ULG)</source>
+      <translation>PX4 ULog 文件（*.ulg *.ULG）</translation>
+    </message>
+      <message>
+      <location filename="../src/AnalyzeView/LogViewer/LogViewerPage.qml" line="138"/>
+      <source>Telemetry Logs (*.tlog *.TLOG)</source>
+      <translation>遥测日志（*.tlog *.TLOG）</translation>
     </message>
   </context>
   <context>
@@ -11992,6 +12117,16 @@ VTOL</translation>
       <location filename="../src/Comms/MAVLinkProtocol.cc" line="509"/>
       <source>Unable to save telemetry log. Telemetry save directory &quot;%1&quot; does not exist.</source>
       <translation>Unable to save telemetry log. Telemetry save directory &quot;%1&quot; does not exist.</translation>
+    </message>
+      <message>
+      <location filename="../src/Comms/MAVLinkProtocol.cc" line="98"/>
+      <source>MAVLink Logging failed. Could not write to file %1, logging disabled.</source>
+      <translation>MAVLink 日志记录失败。无法写入文件 %1，日志记录已禁用。</translation>
+    </message>
+      <message>
+      <location filename="../src/Comms/MAVLinkProtocol.cc" line="371"/>
+      <source>Opening Flight Data file for writing failed. Unable to write to %1. Please choose a different file location.</source>
+      <translation>打开飞行数据文件以进行写入失败。无法写入 %1。请选择其他文件位置。</translation>
     </message>
   </context>
   <context>
@@ -13758,6 +13893,11 @@ Is this really what you want?</source>
       <source>Edit</source>
       <translation>编辑</translation>
     </message>
+      <message>
+      <location filename="../src/AppSettings/OfflineMapInfo.qml" line="26"/>
+      <source>%1 (%2 tiles)</source>
+      <translation>%1（%2 个图块）</translation>
+    </message>
   </context>
   <context>
     <name>OfflineMapSettings</name>
@@ -15303,6 +15443,26 @@ Is this really what you want?</source>
       <source>TODO</source>
       <translation>TODO</translation>
     </message>
+      <message>
+      <location filename="../src/AutoPilotPlugins/PX4/PX4TuningComponentPlaneTECS.qml" line="19"/>
+      <source>Airspeed</source>
+      <translation>空速</translation>
+    </message>
+      <message>
+      <location filename="../src/AutoPilotPlugins/PX4/PX4TuningComponentPlaneTECS.qml" line="22"/>
+      <source>Airspeed Setpoint</source>
+      <translation>空速设定值</translation>
+    </message>
+      <message>
+      <location filename="../src/AutoPilotPlugins/PX4/PX4TuningComponentPlaneTECS.qml" line="23"/>
+      <source>Altitude (Rel)</source>
+      <translation>高度（相对）</translation>
+    </message>
+      <message>
+      <location filename="../src/AutoPilotPlugins/PX4/PX4TuningComponentPlaneTECS.qml" line="24"/>
+      <source>Altitude Setpoint</source>
+      <translation>高度设定值</translation>
+    </message>
   </context>
   <context>
     <name>PX4TuningComponentSpacecraftAll</name>
@@ -15796,6 +15956,16 @@ Note that this will also completely reset everything, including UAVCAN nodes, al
       <location filename="../src/QmlControls/ParameterEditorController.cc" line="500"/>
       <source>No valid parameters found in file. Check that the file is in QGC or Mission Planner format.</source>
       <translation>No valid parameters found in file. Check that the file is in QGC or Mission Planner format.</translation>
+    </message>
+      <message>
+      <location filename="../src/QmlControls/ParameterEditorController.cc" line="469"/>
+      <source>Not a whole number within the parameter's range</source>
+      <translation>不是参数范围内的整数</translation>
+    </message>
+      <message>
+      <location filename="../src/QmlControls/ParameterEditorController.cc" line="475"/>
+      <source>Out of range for the parameter's type</source>
+      <translation>超出参数类型的范围</translation>
     </message>
   </context>
   <context>
@@ -17235,6 +17405,56 @@ Click &apos;Ok&apos; to upload the Plan anyway.</source>
       <source>Failed to start import task</source>
       <translation>Failed to start import task</translation>
     </message>
+      <message>
+      <location filename="../src/QtLocationPlugin/QGCMapEngineManager.cc" line="273"/>
+      <source>Fetch Tile Set</source>
+      <translation>获取图块集</translation>
+    </message>
+      <message>
+      <location filename="../src/QtLocationPlugin/QGCMapEngineManager.cc" line="276"/>
+      <source>Create Tile Set</source>
+      <translation>创建图块集</translation>
+    </message>
+      <message>
+      <location filename="../src/QtLocationPlugin/QGCMapEngineManager.cc" line="279"/>
+      <source>Get Tile Download List</source>
+      <translation>获取图块下载列表</translation>
+    </message>
+      <message>
+      <location filename="../src/QtLocationPlugin/QGCMapEngineManager.cc" line="282"/>
+      <source>Update Tile Download Status</source>
+      <translation>更新图块下载状态</translation>
+    </message>
+      <message>
+      <location filename="../src/QtLocationPlugin/QGCMapEngineManager.cc" line="285"/>
+      <source>Delete Tile Set</source>
+      <translation>删除图块集</translation>
+    </message>
+      <message>
+      <location filename="../src/QtLocationPlugin/QGCMapEngineManager.cc" line="288"/>
+      <source>Reset Tile Sets</source>
+      <translation>重置图块集</translation>
+    </message>
+      <message>
+      <location filename="../src/QtLocationPlugin/QGCMapEngineManager.cc" line="291"/>
+      <source>Export Tile Sets</source>
+      <translation>导出图块集</translation>
+    </message>
+      <message>
+      <location filename="../src/QtLocationPlugin/QGCMapEngineManager.cc" line="294"/>
+      <source>Database Error</source>
+      <translation>数据库错误</translation>
+    </message>
+      <message>
+      <location filename="../src/QtLocationPlugin/QGCMapEngineManager.cc" line="298"/>
+      <source>Error in task: %1</source>
+      <translation>任务出错：%1</translation>
+    </message>
+      <message>
+      <location filename="../src/QtLocationPlugin/QGCMapEngineManager.cc" line="299"/>
+      <source>\nError description:\n</source>
+      <translation>\n错误描述：\n</translation>
+    </message>
   </context>
   <context>
     <name>QGCMapPolygon</name>
@@ -18545,7 +18765,7 @@ Click &apos;Ok&apos; to upload the Plan anyway.</source>
     <message>
       <location filename="../src/Toolbar/RemoteIDIndicatorPage.qml" line="95"/>
       <source>ARM STATUS</source>
-      <translation>ARM STATUS</translation>
+      <translation>解锁状态</translation>
     </message>
     <message>
       <location filename="../src/Toolbar/RemoteIDIndicatorPage.qml" line="119"/>
@@ -18976,32 +19196,32 @@ Click &apos;Ok&apos; to upload the Plan anyway.</source>
     <message>
       <location filename="../src/Toolbar/SelectViewDropdown.qml" line="23"/>
       <source>Fly</source>
-      <translation>Fly</translation>
+      <translation>飞行</translation>
     </message>
     <message>
       <location filename="../src/Toolbar/SelectViewDropdown.qml" line="37"/>
       <source>Plan</source>
-      <translation>Plan</translation>
+      <translation>规划</translation>
     </message>
     <message>
       <location filename="../src/Toolbar/SelectViewDropdown.qml" line="51"/>
       <source>Analyze</source>
-      <translation>Analyze</translation>
+      <translation>分析</translation>
     </message>
     <message>
       <location filename="../src/Toolbar/SelectViewDropdown.qml" line="67"/>
       <source>Configure</source>
-      <translation>Configure</translation>
+      <translation>配置</translation>
     </message>
     <message>
       <location filename="../src/Toolbar/SelectViewDropdown.qml" line="82"/>
       <source>Settings</source>
-      <translation>Settings</translation>
+      <translation>设置</translation>
     </message>
     <message>
       <location filename="../src/Toolbar/SelectViewDropdown.qml" line="98"/>
       <source>Close</source>
-      <translation>Close</translation>
+      <translation>关闭</translation>
     </message>
     <message>
       <location filename="../src/Toolbar/SelectViewDropdown.qml" line="121"/>
@@ -21423,6 +21643,11 @@ If a vehicle still has this key configured, you will no longer be able to commun
       <source>Bootloader flash succeeded</source>
       <translation>Bootloader 刷写成功</translation>
     </message>
+      <message>
+      <location filename="../src/Vehicle/Vehicle.cc" line="1962"/>
+      <source>New location is too far. Must be less than %1 %2.</source>
+      <translation>新位置太远。必须小于 %1 %2。</translation>
+    </message>
   </context>
   <context>
     <name>Vehicle Class</name>
@@ -21556,6 +21781,11 @@ If a vehicle still has this key configured, you will no longer be able to commun
       <location filename="../src/Vehicle/VehicleSetup/VehicleConfigView.qml" line="543"/>
       <source>Firmware</source>
       <translation>Firmware</translation>
+    </message>
+      <message>
+      <location filename="../src/Vehicle/VehicleSetup/VehicleConfigView.qml" line="299"/>
+      <source>%1 does not currently support configuration of your vehicle. If your vehicle is already configured you can still Fly.</source>
+      <translation>%1 目前不支持配置您的载具。如果您的载具已配置，您仍然可以飞行。</translation>
     </message>
   </context>
   <context>
@@ -22347,6 +22577,61 @@ Source: %6 (session %7); destination: %8 (session %9)</source>
       <location filename="../src/GPS/NTRIP/NTRIPConnectionStatus.qml" line="124"/>
       <source>Queued to vehicle links (all sources)</source>
       <translation>Queued to vehicle links (all sources)</translation>
+    </message>
+  </context>
+  <context>
+    <name>DataFlashParser</name>
+    <message>
+      <location filename="../src/AnalyzeView/GeoTag/DataFlashParser.cc" line="87"/>
+      <source>Invalid DataFlash log format</source>
+      <translation>无效 DataFlash 日志格式</translation>
+    </message>
+      <message>
+      <location filename="../src/AnalyzeView/GeoTag/DataFlashParser.cc" line="94"/>
+      <source>No message formats found in log</source>
+      <translation>日志中未找到消息格式</translation>
+    </message>
+      <message>
+      <location filename="../src/AnalyzeView/GeoTag/DataFlashParser.cc" line="110"/>
+      <source>No CAM (camera) messages found in log</source>
+      <translation>日志中未找到 CAM（相机）消息</translation>
+    </message>
+      <message>
+      <location filename="../src/AnalyzeView/GeoTag/DataFlashParser.cc" line="133"/>
+      <source>No valid camera capture events found in log</source>
+      <translation>日志中未找到有效的相机捕获事件</translation>
+    </message>
+  </context>
+  <context>
+    <name>ULogParser</name>
+    <message>
+      <location filename="../src/AnalyzeView/GeoTag/ULogParser.cc" line="74"/>
+      <source>Could not detect camera_capture packets in ULog</source>
+      <translation>无法在 ULog 中检测到 camera_capture 数据包</translation>
+    </message>
+  </context>
+  <context>
+    <name>FlyViewOccluderViewer</name>
+    <message>
+      <location filename="../src/FlyView/FlyViewOccluderViewer.qml" line="13"/>
+      <source>custom</source>
+      <translation>自定义</translation>
+    </message>
+  </context>
+  <context>
+    <name>OfflineMapButton</name>
+    <message>
+      <location filename="../src/QmlControls/OfflineMapButton.qml" line="52"/>
+      <source>%1 (%2 tiles)</source>
+      <translation>%1（%2 个图块）</translation>
+    </message>
+  </context>
+  <context>
+    <name>SubMenuButton</name>
+    <message>
+      <location filename="../src/QmlControls/SubMenuButton.qml" line="7"/>
+      <source>Button</source>
+      <translation>按钮</translation>
     </message>
   </context>
 </TS>
