@@ -6,9 +6,14 @@ on:
     tags:
       - 'zh-v*'
   workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Existing zh-v* tag to build and release'
+        required: true
+        type: string
 
 concurrency:
-  group: release-zh-${{ github.ref_name }}
+  group: release-zh-${{ inputs.tag || github.ref_name }}
   cancel-in-progress: false
 
 permissions:
@@ -28,6 +33,7 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v7
         with:
+          ref: ${{ inputs.tag || github.ref_name }}
           fetch-depth: 0
           persist-credentials: false
 
@@ -66,7 +72,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
-          TAG: ${{ github.ref_name }}
+          TAG: ${{ inputs.tag || github.ref_name }}
         run: |
           notes="${RUNNER_TEMP}/release-notes.md"
           cat > "$notes" <<EOF
@@ -77,9 +83,13 @@ jobs:
           - Linux:下载 AppImage,chmod +x 后直接运行
           EOF
           appimage=$(ls "$RUNNER_TEMP"/build/QGroundControl-*.AppImage | head -n1)
-          gh release create "$TAG" --title "QGroundControl zh-Hans $TAG" \
-            --notes-file "$notes" \
-            "$appimage"
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG" "$appimage" --clobber
+          else
+            gh release create "$TAG" --title "QGroundControl zh-Hans $TAG" \
+              --notes-file "$notes" \
+              "$appimage"
+          fi
 
   windows:
     name: Windows amd64 Installer
@@ -93,6 +103,7 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v7
         with:
+          ref: ${{ inputs.tag || github.ref_name }}
           fetch-depth: 0     # package version comes from git describe and requires reachable tags
           persist-credentials: false
 
@@ -135,7 +146,7 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
-          TAG: ${{ github.ref_name }}
+          TAG: ${{ inputs.tag || github.ref_name }}
         run: |
           notes="${RUNNER_TEMP}/release-notes.md"
           cat > "$notes" <<EOF
@@ -146,6 +157,10 @@ jobs:
           - Windows:下载 QGroundControl-installer-AMD64.exe 安装(未签名,SmartScreen 提示时选择保留即可)
           EOF
           installer=$(ls "$RUNNER_TEMP"/build/QGroundControl-installer-*.exe | head -n1)
-          gh release create "$TAG" --title "QGroundControl zh-Hans $TAG" \
-            --notes-file "$notes" \
-            "$installer"
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            gh release upload "$TAG" "$installer" --clobber
+          else
+            gh release create "$TAG" --title "QGroundControl zh-Hans $TAG" \
+              --notes-file "$notes" \
+              "$installer"
+          fi
