@@ -47,6 +47,13 @@ TranslationTables *translationTables()
     return &tables;
 }
 
+// Application ui locale, installed by QGCApplication::setLanguage().
+QLocale &appLocale()
+{
+    static QLocale locale;  // default-constructed: follows the system locale until setLanguage() runs
+    return locale;
+}
+
 void loadTables(TranslationTables &tables)
 {
     QFile file(QStringLiteral(":/Mavlink/statustext_zhHans.json"));
@@ -158,16 +165,22 @@ QString lookup(const TranslationTables &tables, const QString &text)
 
 }  // namespace
 
+void StatusTextTranslator::setLocale(const QLocale &locale)
+{
+    appLocale() = locale;
+}
+
 QString StatusTextTranslator::translate(const QString &raw)
 {
     if (raw.isEmpty()) {
         return raw;
     }
 
-    // Only apply when the ui language is chinese. QGCApplication::setLanguage()
-    // installs the selected locale as the default locale, so a default QLocale
-    // follows both the explicit language setting and a chinese system language.
-    if (QLocale().language() != QLocale::Chinese) {
+    // Only apply when the ui language is chinese. The locale is installed
+    // explicitly by QGCApplication::setLanguage(); a default-constructed
+    // QLocale is not sufficient because setLanguage() skips QLocale::setDefault()
+    // for en_US, which would leave the gate on the system language.
+    if (appLocale().language() != QLocale::Chinese) {
         return raw;
     }
 
