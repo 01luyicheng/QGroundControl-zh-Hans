@@ -83,12 +83,13 @@ jobs:
           - Linux:下载 AppImage,chmod +x 后直接运行
           EOF
           appimage=$(ls "$RUNNER_TEMP"/build/QGroundControl-*.AppImage | head -n1)
+          sha256sum "$appimage" > "$appimage.sha256"
           if gh release view "$TAG" >/dev/null 2>&1; then
-            gh release upload "$TAG" "$appimage" --clobber
+            gh release upload "$TAG" "$appimage" "$appimage.sha256" --clobber
           else
             gh release create "$TAG" --title "QGroundControl zh-Hans $TAG" \
               --notes-file "$notes" \
-              "$appimage"
+              "$appimage" "$appimage.sha256"
           fi
 
   windows:
@@ -158,10 +159,11 @@ jobs:
           - Windows:下载 QGroundControl-installer-AMD64.exe 安装(未签名,SmartScreen 提示时选择保留即可)
           EOF
           installer=$(ls "$RUNNER_TEMP"/build/QGroundControl-installer-*.exe | head -n1)
+          sha256sum "$installer" > "$installer.sha256"
           if gh release view "$TAG" >/dev/null 2>&1; then
-            gh release upload "$TAG" "$installer" --clobber
+            gh release upload "$TAG" "$installer" "$installer.sha256" --clobber
           else
             gh release create "$TAG" --title "QGroundControl zh-Hans $TAG" \
               --notes-file "$notes" \
-              "$installer"
+              "$installer" "$installer.sha256"
           fi
