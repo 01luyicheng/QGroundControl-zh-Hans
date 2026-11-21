@@ -11574,17 +11574,17 @@ VTOL</translation>
       <message>
       <location filename="../src/AnalyzeView/LogViewer/LogViewerPage.qml" line="117"/>
       <source>DataFlash Logs (*.bin *.BIN *.log *.LOG)</source>
-      <translation>DataFlash 日志（*.bin *.BIN *.log *.LOG）</translation>
+      <translation>DataFlash 日志 (*.bin *.BIN *.log *.LOG)</translation>
     </message>
       <message>
       <location filename="../src/AnalyzeView/LogViewer/LogViewerPage.qml" line="125"/>
       <source>PX4 ULog Files (*.ulg *.ULG)</source>
-      <translation>PX4 ULog 文件（*.ulg *.ULG）</translation>
+      <translation>PX4 ULog 文件 (*.ulg *.ULG)</translation>
     </message>
       <message>
       <location filename="../src/AnalyzeView/LogViewer/LogViewerPage.qml" line="138"/>
       <source>Telemetry Logs (*.tlog *.TLOG)</source>
-      <translation>遥测日志（*.tlog *.TLOG）</translation>
+      <translation>遥测日志 (*.tlog *.TLOG)</translation>
     </message>
   </context>
   <context>
