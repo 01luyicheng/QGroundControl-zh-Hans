@@ -41,6 +41,16 @@
 
 如需使用其他地图（Bing、Google、Mapbox、Esri、VWorld 等），在 **General → Maps → Map Provider** 下拉框切换即可。这些海外地图在国内可能访问受限。
 
+## 与上游同步
+
+本 fork 以某一上游 master 快照为基线,且直接修改了上游文件,同步时以下位置最易冲突:
+
+- `src/Settings/App.SettingsGroup.json`、`src/Settings/AppSettings.cc`(语言默认值等 fork 改动)
+- `translations/qgc_source_zh_CN.ts`、`qgc_json_zh_CN.ts`(上游 Crowdin 会定期重写)
+- 做过 `qsTr()`/`tr()` 包裹改造的 `src` 源文件
+
+发布前执行 `git fetch origin && git rebase origin/master` 同步上游。ts 文件冲突时保留本地译文、再合并上游新增条目(可借助 `lupdate`)。注意:界面语言默认值改动依赖 Qt6 的 `QLocale::Chinese` 枚举数值(= 58,JSON 里硬编码),升级 Qt 大版本时需复核该数值是否变化。
+
 ## 构建
 
 本仓库使用上游自带的 composite actions 构建(Qt 6.12)。推 `zh-v*` 格式的 tag 会触发 `release-zh.yml` 自动构建 Linux AppImage 与 Windows 安装包并发布 Release。
