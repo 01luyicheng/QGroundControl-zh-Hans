@@ -401,8 +401,18 @@ QLocale::Language AppSettings::_qLocaleLanguageEarlyAccess(void)
 {
     QSettings settings;
 
+    QLocale::Language localeLanguage;
+
+    // Fork: default to Chinese on fresh install (missing setting) as documented in README.zh-CN.md. Note that a
+    // stored value of 0 (System) is still respected since the key exists in that case.
+    if (!settings.contains(qLocaleLanguageName)) {
+        localeLanguage = QLocale::Chinese;
+        settings.setValue(qLocaleLanguageName, localeLanguage);
+        return localeLanguage;
+    }
+
     // Note that the AppSettings group has no group name
-    QLocale::Language localeLanguage = static_cast<QLocale::Language>(settings.value(qLocaleLanguageName).toInt());
+    localeLanguage = static_cast<QLocale::Language>(settings.value(qLocaleLanguageName).toInt());
     for (auto& languageInfo: _rgLanguageInfo) {
         if (languageInfo.languageId == localeLanguage) {
             return localeLanguage;
