@@ -15,6 +15,15 @@
 - 为 25 处未包裹翻译函数的用户可见字符串补上 `qsTr()`(QML)/ `tr()` / `QCoreApplication::translate()`(C++),涉及 VehicleConfigView、BluetoothSettings、ParameterEditorController、MAVLinkProtocol、QGCMapEngineManager、FirmwareImage 等。
 - 顺带修复「半句在 qsTr 外拼接」导致的语序硬伤(如 "… tiles)"、"… [Connected]" 片段),改为完整的 `%1` 模板。
 
+### 3. 翻译全量覆盖(2026-11-22)
+- ts 与源码全量对齐:从 src/(含 .js)重新提取全部 `tr/qsTr/translate` 条目,补入 `qgc_source_zh_CN.ts` 1517 条、`qgc_json_zh_CN.ts` 346 条(此前这些句子因不在 ts 中运行时直接英文回退)。
+- 两个 ts 全文件翻译收尾:除白名单(纯缩写/单位/参数名/文件 glob/固件机架模式名等 293 条)与 30 条 MockLink 测试专用条目外,全部界面文案为中文——包括固件刷写、PX4/ArduPilot 传感器校准、失控保护/安全设置页描述、日志事件目录、地图/视频/摇杆交互等此前整页英文的区域。
+- 术语统一:vehicle=载具、failsafe=故障保护、arm=解锁、disarm=上锁、fence=围栏、RTL=返航,并修正基线遗留的繁体字与禁用词。
+
+### 4. 飞控消息友好翻译(STATUSTEXT)
+- 飞控下发的英文运行消息(如 `PreArm: Barometer not healthy`、`Battery failsafe!`)在消息面板、弹出横幅与语音播报中显示中文译文;语料 194 条覆盖 ArduPilot 常见告警(抓取自上游源码),仅当界面语言为中文时启用,未命中的消息原样透传,任何异常自动降级——消息永不丢失。
+- 仅翻译显示副本:日志、参数校验、校准流程匹配仍用英文原文,不影响任何功能逻辑。
+
 ## 使用方法
 
 | 平台 | 产物 | 说明 |
