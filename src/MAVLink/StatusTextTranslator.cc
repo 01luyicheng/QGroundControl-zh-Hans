@@ -16,21 +16,9 @@
 #include <QtCore/QRegularExpressionMatchIterator>
 #include <QtCore/QStringList>
 
-QGC_LOGGING_CATEGORY(StatusTextTranslatorLog, "MAVLink.StatusTextTranslator")
+QGC_LOGGING_CATEGORY(StatusTextTranslatorLog, "MAVLink.StatusTextTranslator")  // NOLINT(clazy-non-pod-global-static)
 
 namespace {
-
-// AP_Arming sends the same check failure as "PreArm: X" / "Pre-Arm: X" / "Arm: X".
-// PX4 arming denials have no such prefix variants, so the swap is only ever applied
-// to the ArduPilot table.
-const QStringList kArmingPrefixes = {
-    QStringLiteral("PreArm:"),
-    QStringLiteral("Pre-Arm:"),
-    QStringLiteral("Arm:"),
-};
-
-// {N} placeholders inside the corpus templates
-const QRegularExpression kPlaceholderRegex(QStringLiteral("\\{(\\d+)\\}"));
 
 typedef QPair<QRegularExpression, QString> RegexEntry_t;
 
@@ -80,7 +68,7 @@ void loadTables(TranslationTables &tables, const QString &resourcePath)
     bool valid = true;
 
     const QJsonArray entries = doc.array();
-    for (const QJsonValue &entryValue : entries) {
+    for (const QJsonValueConstRef &entryValue : entries) {
         const QJsonObject entry = entryValue.toObject();
         const QJsonObject match = entry.value(QStringLiteral("match")).toObject();
         const QString type = match.value(QStringLiteral("type")).toString();
@@ -129,18 +117,22 @@ const TranslationTables *ensureLoaded(TranslationTables *tables, const QString &
 // the corpus template references capture groups as {0} for group 1, {1} for group 2...
 QString replacePlaceholders(const QString &templateText, const QRegularExpressionMatch &match)
 {
+    // {N} placeholders inside the corpus templates
+    static const QRegularExpression kPlaceholderRegex(QStringLiteral("\\{(\\d+)\\}"));
+
     QString result;
     qsizetype lastEnd = 0;
 
     QRegularExpressionMatchIterator it = kPlaceholderRegex.globalMatch(templateText);
     while (it.hasNext()) {
         const QRegularExpressionMatch placeholder = it.next();
-        result += templateText.mid(lastEnd, placeholder.capturedStart() - lastEnd);
+        result += QStringView(templateText).mid(lastEnd, placeholder.capturedStart() - lastEnd);
 
         bool ok = false;
         const qsizetype groupIndex = placeholder.captured(1).toLongLong(&ok) + 1;
         if (ok && (groupIndex <= match.lastCapturedIndex())) {
-            result += match.captured(groupIndex);
+            // the comparison above keeps groupIndex within int range, so the cast never truncates
+            result += match.captured(static_cast<int>(groupIndex));
         } else {
             result += placeholder.captured(0);
         }
@@ -148,7 +140,7 @@ QString replacePlaceholders(const QString &templateText, const QRegularExpressio
         lastEnd = placeholder.capturedEnd();
     }
 
-    result += templateText.mid(lastEnd);
+    result += QStringView(templateText).mid(lastEnd);
 
     return result;
 }
@@ -185,6 +177,15 @@ QString StatusTextTranslator::translate(const QString &raw)
 
 QString StatusTextTranslator::translate(const QString &raw, bool isPx4)
 {
+    // AP_Arming sends the same check failure as "PreArm: X" / "Pre-Arm: X" / "Arm: X".
+    // PX4 arming denials have no such prefix variants, so the swap is only ever applied
+    // to the ArduPilot table.
+    static const QStringList kArmingPrefixes = {
+        QStringLiteral("PreArm:"),
+        QStringLiteral("Pre-Arm:"),
+        QStringLiteral("Arm:"),
+    };
+
     if (raw.isEmpty()) {
         return raw;
     }
@@ -204,7 +205,7 @@ QString StatusTextTranslator::translate(const QString &raw, bool isPx4)
         return raw;
     }
 
-    const QString hit = lookup(*t, raw);
+    QString hit = lookup(*t, raw);
     if (!hit.isNull()) {
         return hit;
     }
@@ -229,7 +230,7 @@ QString StatusTextTranslator::translate(const QString &raw, bool isPx4)
                 continue;
             }
 
-            const QString swappedHit = lookup(*t, other + body);
+            QString swappedHit = lookup(*t, other + body);
             if (swappedHit.isNull()) {
                 continue;
             }
