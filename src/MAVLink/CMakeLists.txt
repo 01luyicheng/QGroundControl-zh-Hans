@@ -168,6 +168,7 @@ qt_add_resources(
     PREFIX "/Mavlink"
     FILES
         statustext_zhHans.json
+        statustext_px4.json
 )
 
 # ----------------------------------------------------------------------------

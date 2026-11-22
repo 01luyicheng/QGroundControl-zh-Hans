@@ -3504,8 +3504,10 @@ void Vehicle::_createStatusTextHandler()
 
 void Vehicle::_onStatusTextFromEvent(uint8_t compid, int severity, const QString &text, const QString &description)
 {
-    // Event text is purely for display, so it is translated for the message list
-    const QString displayText = StatusTextTranslator::translate(text);
+    // Event text is purely for display, so it is translated for the message list.
+    // Both firmwares deliver display text through events (newer ArduPilot firmware
+    // sends events too), so the corpus is selected by firmware type.
+    const QString displayText = StatusTextTranslator::translate(text, px4Firmware());
     m_statusTextHandler->handleHTMLEscapedTextMessage(static_cast<MAV_COMPONENT>(compid),
                                                       static_cast<MAV_SEVERITY>(severity), displayText, description);
 }
@@ -3539,7 +3541,7 @@ void Vehicle::_textMessageReceived(MAV_COMPONENT componentid, MAV_SEVERITY sever
             skipSpoken = true;
         } else {
             (void) _noisySpokenPrearmMap.insert(text, QTime::currentTime());
-            setPrearmError(StatusTextTranslator::translate(text));
+            setPrearmError(StatusTextTranslator::translate(text, px4Firmware()));
         }
     }
 
@@ -3554,7 +3556,7 @@ void Vehicle::_textMessageReceived(MAV_COMPONENT componentid, MAV_SEVERITY sever
 
     // The raw text stays on the textMessageReceived signal - the calibration controllers match on the
     // english text. Everything below is display only (banner, speech, vehicle messages).
-    const QString displayText = StatusTextTranslator::translate(text);
+    const QString displayText = StatusTextTranslator::translate(text, px4Firmware());
 
     if (readAloud && !skipSpoken) {
         _say(displayText);

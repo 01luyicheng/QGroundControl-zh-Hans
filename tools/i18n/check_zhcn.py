@@ -13,6 +13,9 @@ Checks:
   c) XML validity + baseline entry order/location spot check: a deterministic
      sample of (context, source, location) recorded in the baseline must
      still appear in the same relative order with unchanged locations.
+  d) STATUSTEXT corpora: the repo files backing the :/Mavlink qrc resources
+     must exist, parse as JSON arrays and keep at least the baseline entry
+     count (guards against corpus deletion or shrinkage).
 
 Exit code 0 = pass, 1 = fail. Human-readable report on stdout.
 """
@@ -25,6 +28,7 @@ import xml.etree.ElementTree as ET
 REPO = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 BASE = os.path.join(os.path.dirname(os.path.abspath(__file__)), "baseline")
 TS_FILES = ["translations/qgc_source_zh_CN.ts", "translations/qgc_json_zh_CN.ts"]
+STATUSTEXT_CORPORA = {"px4": "src/MAVLink/statustext_px4.json"}
 
 fails = []
 
@@ -153,6 +157,35 @@ def check_order(baseline):
     return not bad
 
 
+def check_statustext_corpora(baseline):
+    """d) STATUSTEXT corpora: repo files exist, are JSON arrays, entry count >= baseline."""
+    bad = False
+    floors = baseline.get("statustext_corpora", {})
+    for name, rel in STATUSTEXT_CORPORA.items():
+        floor = floors.get(name)
+        if floor is None:
+            # older baseline snapshots predate the corpus gate; nothing to enforce yet
+            print(f"[corpus] {rel}: no baseline floor, skipped")
+            continue
+        try:
+            with open(os.path.join(REPO, rel), encoding="utf-8") as fh:
+                entries = json.load(fh)
+        except (OSError, ValueError) as e:
+            fails.append(f"[corpus] {rel}: cannot load corpus: {e}")
+            bad = True
+            continue
+        if not isinstance(entries, list):
+            fails.append(f"[corpus] {rel}: corpus is not a JSON array")
+            bad = True
+            continue
+        status = "FAIL" if len(entries) < floor else "PASS"
+        print(f"[corpus] {rel}: entries={len(entries)} (baseline floor {floor}): {status}")
+        if len(entries) < floor:
+            fails.append(f"[corpus] {rel}: entry count {len(entries)} < baseline {floor}")
+            bad = True
+    return not bad
+
+
 def main():
     print("=== QGC zh-CN i18n regression gate ===")
     try:
@@ -164,6 +197,7 @@ def main():
     ok &= check_counts(baseline)
     ok &= check_filters()
     ok &= check_order(baseline)
+    ok &= check_statustext_corpora(baseline)
     if fails:
         print("\nFAILURES:")
         for f in fails:

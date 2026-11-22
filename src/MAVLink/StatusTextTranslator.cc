@@ -20,7 +20,9 @@ QGC_LOGGING_CATEGORY(StatusTextTranslatorLog, "MAVLink.StatusTextTranslator")
 
 namespace {
 
-// AP_Arming sends the same check failure as "PreArm: X" / "Pre-Arm: X" / "Arm: X"
+// AP_Arming sends the same check failure as "PreArm: X" / "Pre-Arm: X" / "Arm: X".
+// PX4 arming denials have no such prefix variants, so the swap is only ever applied
+// to the ArduPilot table.
 const QStringList kArmingPrefixes = {
     QStringLiteral("PreArm:"),
     QStringLiteral("Pre-Arm:"),
@@ -32,7 +34,8 @@ const QRegularExpression kPlaceholderRegex(QStringLiteral("\\{(\\d+)\\}"));
 
 typedef QPair<QRegularExpression, QString> RegexEntry_t;
 
-// Corpus is loaded lazily once; the tables are read-only afterwards
+// One corpus per firmware family, loaded lazily once; the tables are read-only
+// afterwards and fully independent - a corpus load failure disables only its own table.
 struct TranslationTables {
     QMutex mutex;
     bool loaded = false;
@@ -41,7 +44,13 @@ struct TranslationTables {
     QList<RegexEntry_t> regexes;  // corpus order
 };
 
-TranslationTables *translationTables()
+TranslationTables *arduPilotTables()
+{
+    static TranslationTables tables;
+    return &tables;
+}
+
+TranslationTables *px4Tables()
 {
     static TranslationTables tables;
     return &tables;
@@ -54,17 +63,17 @@ QLocale &appLocale()
     return locale;
 }
 
-void loadTables(TranslationTables &tables)
+void loadTables(TranslationTables &tables, const QString &resourcePath)
 {
-    QFile file(QStringLiteral(":/Mavlink/statustext_zhHans.json"));
+    QFile file(resourcePath);
     if (!file.open(QIODevice::ReadOnly)) {
-        qCWarning(StatusTextTranslatorLog) << "Failed to open STATUSTEXT translation corpus, translation disabled";
+        qCWarning(StatusTextTranslatorLog) << "Failed to open STATUSTEXT translation corpus, table disabled:" << resourcePath;
         return;
     }
 
     const QJsonDocument doc = QJsonDocument::fromJson(file.readAll());
     if (!doc.isArray()) {
-        qCWarning(StatusTextTranslatorLog) << "Invalid STATUSTEXT translation corpus, translation disabled";
+        qCWarning(StatusTextTranslatorLog) << "Invalid STATUSTEXT translation corpus, table disabled:" << resourcePath;
         return;
     }
 
@@ -107,15 +116,14 @@ void loadTables(TranslationTables &tables)
                                      << tables.regexes.count() << "regex";
 }
 
-const TranslationTables *ensureLoaded()
+const TranslationTables *ensureLoaded(TranslationTables *tables, const QString &resourcePath)
 {
-    TranslationTables *const t = translationTables();
-    const QMutexLocker locker(&t->mutex);
-    if (!t->loaded) {
-        loadTables(*t);
-        t->loaded = true;
+    const QMutexLocker locker(&tables->mutex);
+    if (!tables->loaded) {
+        loadTables(*tables, resourcePath);
+        tables->loaded = true;
     }
-    return t;
+    return tables;
 }
 
 // the corpus template references capture groups as {0} for group 1, {1} for group 2...
@@ -172,6 +180,11 @@ void StatusTextTranslator::setLocale(const QLocale &locale)
 
 QString StatusTextTranslator::translate(const QString &raw)
 {
+    return translate(raw, false);
+}
+
+QString StatusTextTranslator::translate(const QString &raw, bool isPx4)
+{
     if (raw.isEmpty()) {
         return raw;
     }
@@ -184,7 +197,9 @@ QString StatusTextTranslator::translate(const QString &raw)
         return raw;
     }
 
-    const TranslationTables *const t = ensureLoaded();
+    TranslationTables *const tables = isPx4 ? px4Tables() : arduPilotTables();
+    const TranslationTables *const t = ensureLoaded(tables, isPx4 ? QStringLiteral(":/Mavlink/statustext_px4.json")
+                                                                  : QStringLiteral(":/Mavlink/statustext_zhHans.json"));
     if (!t->valid) {
         return raw;
     }
@@ -192,6 +207,13 @@ QString StatusTextTranslator::translate(const QString &raw)
     const QString hit = lookup(*t, raw);
     if (!hit.isNull()) {
         return hit;
+    }
+
+    // The prefix swap below is an AP_Arming behavior: PX4 arming denials arrive
+    // without the "PreArm:"/"Pre-Arm:"/"Arm:" prefix variants, so the PX4 table
+    // is only ever matched as-is.
+    if (isPx4) {
+        return raw;
     }
 
     // The same arming check failure is sent with different prefix tokens:

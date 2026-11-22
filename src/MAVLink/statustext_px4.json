@@ -1,0 +1,1791 @@
+[
+ {
+  "id": "px4_arm_denied_calibrating",
+  "match": {
+   "type": "exact",
+   "value": "Arming denied: calibrating"
+  },
+  "zh": "Arming denied: 校准进行中，无法解锁",
+  "severity": "critical",
+  "category": "arming",
+  "source": "src/modules/commander/Commander.cpp arm()（commander_arm_denied_calibrating，遗留文本带 tab 已被 QGC 丢弃）"
+ },
+ {
+  "id": "px4_arm_denied_throttle_unsafe",
+  "match": {
+   "type": "exact",
+   "value": "Arming denied: throttle not in safe position"
+  },
+  "zh": "Arming denied: 油门不在安全位置",
+  "severity": "critical",
+  "category": "arming",
+  "source": "src/modules/commander/Commander.cpp arm()（commander_arm_denied_throttle_unsafe）"
+ },
+ {
+  "id": "px4_arm_denied_resolve_multi",
+  "match": {
+   "type": "regex",
+   "value": "^Arming denied: Resolve system health failures first\n((- .+\n?)+)$"
+  },
+  "zh": "Arming denied: 存在系统健康故障，请先解决以下问题：\n{0}",
+  "severity": "critical",
+  "category": "arming",
+  "source": "src/modules/commander/Commander.cpp arm()（commander_arm_denied_resolve_failures，@type append_health_and_arming_messages）",
+  "note": "汇总事件：首行后为 '- 明细' 行列表；{0} 为明细块（明细行仍为英文，对应各检查条目）"
+ },
+ {
+  "id": "px4_arm_denied_resolve_single",
+  "match": {
+   "type": "regex",
+   "value": "^Arming denied: Resolve system health failures first\n(.+)$"
+  },
+  "zh": "Arming denied: 存在系统健康故障，请先解决：{0}",
+  "severity": "critical",
+  "category": "arming",
+  "source": "src/modules/commander/Commander.cpp arm()（commander_arm_denied_resolve_failures，仅一条明细时无 '- ' 前缀）",
+  "note": "仅一条检查消息时无 '- ' 前缀；{0} 为该检查消息"
+ },
+ {
+  "id": "px4_arm_denied_not_landed",
+  "match": {
+   "type": "exact",
+   "value": "Disarming denied: not landed"
+  },
+  "zh": "Disarming denied: 尚未降落，无法上锁",
+  "severity": "critical",
+  "category": "arming",
+  "source": "src/modules/commander/Commander.cpp disarm()（commander_disarm_denied_not_landed）"
+ },
+ {
+  "id": "px4_armed_by",
+  "match": {
+   "type": "regex",
+   "value": "^Armed by (.+)$"
+  },
+  "zh": "已通过 {0} 解锁",
+  "severity": "info",
+  "category": "arming",
+  "source": "src/modules/commander/Commander.cpp arm()（commander_armed_by）",
+  "note": "{0} 为解锁来源枚举描述（RC switch / Ground station / Mission 等），保留英文"
+ },
+ {
+  "id": "px4_disarmed_by",
+  "match": {
+   "type": "regex",
+   "value": "^Disarmed by (.+)$"
+  },
+  "zh": "已通过 {0} 上锁",
+  "severity": "info",
+  "category": "arming",
+  "source": "src/modules/commander/Commander.cpp disarm()（commander_disarmed_by）",
+  "note": "{0} 为上锁来源枚举描述，保留英文"
+ },
+ {
+  "id": "px4_kill_engaged",
+  "match": {
+   "type": "exact",
+   "value": "Kill engaged"
+  },
+  "zh": "Kill 急停开关已触发",
+  "severity": "info",
+  "category": "arming",
+  "source": "src/modules/commander/Commander.cpp set_kill_switch_state()（commander_kill_sw_engaged）"
+ },
+ {
+  "id": "px4_takeoff_detected",
+  "match": {
+   "type": "exact",
+   "value": "Takeoff detected"
+  },
+  "zh": "检测到已起飞",
+  "severity": "info",
+  "category": "arming",
+  "source": "src/modules/commander/Commander.cpp land_detector 回调（commander_takeoff_detected）"
+ },
+ {
+  "id": "px4_v113_arm_denied_ang_vel",
+  "match": {
+   "type": "exact",
+   "value": "Arming denied! angular velocity invalid"
+  },
+  "zh": "Arming denied! 角速度估计无效",
+  "severity": "critical",
+  "category": "arming",
+  "source": "src/modules/commander/Arming/PreFlightCheck/checks/preArmCheck.cpp（v1.13.3，STATUSTEXT 直发）"
+ },
+ {
+  "id": "px4_v113_arm_denied_attitude",
+  "match": {
+   "type": "exact",
+   "value": "Arming denied! attitude invalid"
+  },
+  "zh": "Arming denied! 姿态估计无效",
+  "severity": "critical",
+  "category": "arming",
+  "source": "src/modules/commander/Arming/PreFlightCheck/checks/preArmCheck.cpp（v1.13.3，STATUSTEXT 直发）"
+ },
+ {
+  "id": "px4_v113_arm_denied_position",
+  "match": {
+   "type": "exact",
+   "value": "Arming denied! position invalid"
+  },
+  "zh": "Arming denied! 位置估计无效",
+  "severity": "critical",
+  "category": "arming",
+  "source": "src/modules/commander/Arming/PreFlightCheck/checks/preArmCheck.cpp（v1.13.3，STATUSTEXT 直发）"
+ },
+ {
+  "id": "px4_v113_arm_denied_manual_control",
+  "match": {
+   "type": "exact",
+   "value": "Arming denied! manual control lost"
+  },
+  "zh": "Arming denied! 遥控信号丢失",
+  "severity": "critical",
+  "category": "arming",
+  "source": "src/modules/commander/Arming/PreFlightCheck/checks/preArmCheck.cpp（v1.13.3，STATUSTEXT 直发）"
+ },
+ {
+  "id": "px4_v113_arm_denied_usb",
+  "match": {
+   "type": "exact",
+   "value": "Arming denied! Flying with USB is not safe"
+  },
+  "zh": "Arming denied! 连接 USB 时飞行不安全",
+  "severity": "critical",
+  "category": "arming",
+  "source": "src/modules/commander/Arming/PreFlightCheck/checks/preArmCheck.cpp（v1.13.3，STATUSTEXT 直发）"
+ },
+ {
+  "id": "px4_v113_arm_denied_home",
+  "match": {
+   "type": "exact",
+   "value": "Arming denied! Home position invalid"
+  },
+  "zh": "Arming denied! Home 点无效",
+  "severity": "critical",
+  "category": "arming",
+  "source": "src/modules/commander/Arming/PreFlightCheck/checks/preArmCheck.cpp（v1.13.3，STATUSTEXT 直发）"
+ },
+ {
+  "id": "px4_pf_accel_sensor_missing",
+  "match": {
+   "type": "regex",
+   "value": "^Preflight Fail: Accel Sensor (\\d+) missing$"
+  },
+  "zh": "Preflight Fail: 加速度计传感器 {0} 缺失",
+  "severity": "critical",
+  "category": "arming",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/accelerometerCheck.cpp checkAndReport()（master 与 v1.13 同文）"
+ },
+ {
+  "id": "px4_pf_accel_no_data",
+  "match": {
+   "type": "regex",
+   "value": "^Preflight Fail: No valid data from Accel (\\d+)$"
+  },
+  "zh": "Preflight Fail: 加速度计 {0} 无有效数据",
+  "severity": "critical",
+  "category": "arming",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/accelerometerCheck.cpp checkAndReport()（master）"
+ },
+ {
+  "id": "px4_pf_accel_uncalibrated",
+  "match": {
+   "type": "regex",
+   "value": "^Preflight Fail: Accel (\\d+) uncalibrated$"
+  },
+  "zh": "Preflight Fail: 加速度计 {0} 未校准",
+  "severity": "critical",
+  "category": "arming",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/accelerometerCheck.cpp checkAndReport()"
+ },
+ {
+  "id": "px4_pf_gyro_sensor_missing",
+  "match": {
+   "type": "regex",
+   "value": "^Preflight Fail: Gyro Sensor (\\d+) missing$"
+  },
+  "zh": "Preflight Fail: 陀螺仪传感器 {0} 缺失",
+  "severity": "critical",
+  "category": "arming",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/gyroCheck.cpp checkAndReport()"
+ },
+ {
+  "id": "px4_pf_gyro_no_data",
+  "match": {
+   "type": "regex",
+   "value": "^Preflight Fail: No valid data from Gyro (\\d+)$"
+  },
+  "zh": "Preflight Fail: 陀螺仪 {0} 无有效数据",
+  "severity": "critical",
+  "category": "arming",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/gyroCheck.cpp checkAndReport()"
+ },
+ {
+  "id": "px4_pf_gyro_uncalibrated",
+  "match": {
+   "type": "regex",
+   "value": "^Preflight Fail: Gyro (\\d+) uncalibrated$"
+  },
+  "zh": "Preflight Fail: 陀螺仪 {0} 未校准",
+  "severity": "critical",
+  "category": "arming",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/gyroCheck.cpp checkAndReport()"
+ },
+ {
+  "id": "px4_pf_mag_sensor_missing",
+  "match": {
+   "type": "regex",
+   "value": "^Preflight Fail: Compass Sensor (\\d+) missing$"
+  },
+  "zh": "Preflight Fail: 罗盘传感器 {0} 缺失",
+  "severity": "critical",
+  "category": "arming",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/magnetometerCheck.cpp checkAndReport()"
+ },
+ {
+  "id": "px4_pf_mag_no_data",
+  "match": {
+   "type": "regex",
+   "value": "^Preflight Fail: No valid data from Compass (\\d+)$"
+  },
+  "zh": "Preflight Fail: 罗盘 {0} 无有效数据",
+  "severity": "critical",
+  "category": "arming",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/magnetometerCheck.cpp checkAndReport()"
+ },
+ {
+  "id": "px4_pf_mag_uncalibrated",
+  "match": {
+   "type": "regex",
+   "value": "^Preflight Fail: Compass (\\d+) uncalibrated$"
+  },
+  "zh": "Preflight Fail: 罗盘 {0} 未校准",
+  "severity": "critical",
+  "category": "arming",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/magnetometerCheck.cpp checkAndReport()"
+ },
+ {
+  "id": "px4_pf_mag_inconsistent",
+  "match": {
+   "type": "regex",
+   "value": "^Preflight Fail: Compasses (\\d+)° inconsistent$"
+  },
+  "zh": "Preflight Fail: 多个罗盘指向不一致，偏差 {0}°，请检查干扰",
+  "severity": "critical",
+  "category": "arming",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/imuConsistencyCheck.cpp checkAndReport()（master 与 v1.13 同文）"
+ },
+ {
+  "id": "px4_pf_baro_missing",
+  "match": {
+   "type": "regex",
+   "value": "^Preflight Fail: barometer (\\d+) missing$"
+  },
+  "zh": "Preflight Fail: 气压计 {0} 缺失",
+  "severity": "critical",
+  "category": "arming",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/baroCheck.cpp checkAndReport()（master，小写 barometer）"
+ },
+ {
+  "id": "px4_pf_baro_no_data",
+  "match": {
+   "type": "regex",
+   "value": "^Preflight Fail: [Nn]o valid data from Baro (\\d+)$"
+  },
+  "zh": "Preflight Fail: 气压计 {0} 无有效数据",
+  "severity": "critical",
+  "category": "arming",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/baroCheck.cpp checkAndReport()（master 大写，v1.13 小写，合并）"
+ },
+ {
+  "id": "px4_pf_baro_none_enabled",
+  "match": {
+   "type": "exact",
+   "value": "Preflight Fail: no barometer enabled"
+  },
+  "zh": "Preflight Fail: 未启用气压计",
+  "severity": "critical",
+  "category": "arming",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/baroCheck.cpp checkAndReport()"
+ },
+ {
+  "id": "px4_pf_heading_invalid",
+  "match": {
+   "type": "exact",
+   "value": "Preflight Fail: heading estimate invalid"
+  },
+  "zh": "Preflight Fail: 航向估计无效",
+  "severity": "critical",
+  "category": "arming",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/estimatorCheck.cpp checkAndReport()（master）"
+ },
+ {
+  "id": "px4_pf_hor_vel_unstable",
+  "match": {
+   "type": "exact",
+   "value": "Preflight Fail: horizontal velocity unstable"
+  },
+  "zh": "Preflight Fail: 水平速度估计不稳定",
+  "severity": "critical",
+  "category": "arming",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/estimatorCheck.cpp checkAndReport()（master）"
+ },
+ {
+  "id": "px4_pf_vert_vel_unstable",
+  "match": {
+   "type": "exact",
+   "value": "Preflight Fail: vertical velocity unstable"
+  },
+  "zh": "Preflight Fail: 垂直速度估计不稳定",
+  "severity": "critical",
+  "category": "arming",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/estimatorCheck.cpp checkAndReport()（master）"
+ },
+ {
+  "id": "px4_pf_height_not_stable",
+  "match": {
+   "type": "exact",
+   "value": "Preflight Fail: height estimate not stable"
+  },
+  "zh": "Preflight Fail: 高度估计不稳定",
+  "severity": "critical",
+  "category": "arming",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/estimatorCheck.cpp checkAndReport()（master 与 v1.13 同文）"
+ },
+ {
+  "id": "px4_pf_high_accel_bias",
+  "match": {
+   "type": "exact",
+   "value": "Preflight Fail: High Accelerometer Bias"
+  },
+  "zh": "Preflight Fail: 加速度计偏置过大",
+  "severity": "critical",
+  "category": "arming",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/estimatorCheck.cpp checkAndReport()（master 与 v1.13 同文）"
+ },
+ {
+  "id": "px4_pf_high_gyro_bias",
+  "match": {
+   "type": "exact",
+   "value": "Preflight Fail: High Gyro Bias"
+  },
+  "zh": "Preflight Fail: 陀螺仪偏置过大",
+  "severity": "critical",
+  "category": "arming",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/estimatorCheck.cpp checkAndReport()（master 与 v1.13 同文）"
+ },
+ {
+  "id": "px4_pf_no_heading_ref",
+  "match": {
+   "type": "exact",
+   "value": "Preflight Fail: no heading reference"
+  },
+  "zh": "Preflight Fail: 无可用的航向基准源",
+  "severity": "critical",
+  "category": "arming",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/estimatorCheck.cpp checkAndReport()（master）"
+ },
+ {
+  "id": "px4_pf_accel_inconsistent",
+  "match": {
+   "type": "regex",
+   "value": "^Preflight Fail: Accel (\\d+) inconsistent - [Cc]heck [Cc]al$"
+  },
+  "zh": "Preflight Fail: 加速度计 {0} 一致性异常，请检查校准",
+  "severity": "critical",
+  "category": "arming",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/imuConsistencyCheck.cpp checkAndReport()（master 小写，v1.13 首字母大写，合并）"
+ },
+ {
+  "id": "px4_pf_gyro_inconsistent",
+  "match": {
+   "type": "regex",
+   "value": "^Preflight Fail: Gyro (\\d+) inconsistent - [Cc]heck [Cc]al$"
+  },
+  "zh": "Preflight Fail: 陀螺仪 {0} 一致性异常，请检查校准",
+  "severity": "critical",
+  "category": "arming",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/imuConsistencyCheck.cpp checkAndReport()（master 小写，v1.13 首字母大写，合并）"
+ },
+ {
+  "id": "px4_pf_airspeed_invalid",
+  "match": {
+   "type": "regex",
+   "value": "^Preflight Fail: Airspeed invalid\\.?$"
+  },
+  "zh": "Preflight Fail: 空速数据无效",
+  "severity": "critical",
+  "category": "arming",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/airspeedCheck.cpp checkAndReport()（master 无句号，v1.13 带句号，合并）"
+ },
+ {
+  "id": "px4_pf_airspeed_too_high",
+  "match": {
+   "type": "exact",
+   "value": "Preflight Fail: Airspeed too high"
+  },
+  "zh": "Preflight Fail: 空速过高",
+  "severity": "critical",
+  "category": "arming",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/airspeedCheck.cpp checkAndReport()（master）"
+ },
+ {
+  "id": "px4_pf_airspeed_selector_down",
+  "match": {
+   "type": "regex",
+   "value": "^Preflight Fail: Airspeed [Ss]elector module down\\.?$"
+  },
+  "zh": "Preflight Fail: 空速选择模块未运行",
+  "severity": "critical",
+  "category": "arming",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/airspeedCheck.cpp checkAndReport()（master 与 v1.13 合并）"
+ },
+ {
+  "id": "px4_pf_distance_sensor_missing",
+  "match": {
+   "type": "regex",
+   "value": "^Preflight Fail: [Dd]istance [Ss]ensor (\\d+) missing$"
+  },
+  "zh": "Preflight Fail: 测距传感器 {0} 缺失",
+  "severity": "critical",
+  "category": "arming",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/distanceSensorChecks.cpp checkAndReport()（master 大写，v1.13 小写，合并）"
+ },
+ {
+  "id": "px4_pf_cpu_too_high",
+  "match": {
+   "type": "regex",
+   "value": "^Preflight Fail: CPU load too high: ([0-9.]+)%$"
+  },
+  "zh": "Preflight Fail: CPU 负载过高：{0}%",
+  "severity": "critical",
+  "category": "arming",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/cpuResourceCheck.cpp checkAndReport()"
+ },
+ {
+  "id": "px4_pf_ram_too_high",
+  "match": {
+   "type": "regex",
+   "value": "^Preflight Fail: RAM usage too high: ([0-9.]+)%$"
+  },
+  "zh": "Preflight Fail: 内存占用过高：{0}%",
+  "severity": "critical",
+  "category": "arming",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/cpuResourceCheck.cpp checkAndReport()"
+ },
+ {
+  "id": "px4_pf_attitude_failure",
+  "match": {
+   "type": "exact",
+   "value": "Preflight Fail: Attitude failure (tilt)"
+  },
+  "zh": "Preflight Fail: 姿态故障（倾斜超限）",
+  "severity": "critical",
+  "category": "arming",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/failureDetectorCheck.cpp checkAndReport()（master）"
+ },
+ {
+  "id": "px4_pf_external_failure",
+  "match": {
+   "type": "exact",
+   "value": "Preflight Fail: triggered by external system"
+  },
+  "zh": "Preflight Fail: 由外部系统触发的故障",
+  "severity": "critical",
+  "category": "arming",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/failureDetectorCheck.cpp checkAndReport()（master）"
+ },
+ {
+  "id": "px4_pf_imbalanced_prop",
+  "match": {
+   "type": "exact",
+   "value": "Preflight Fail: Imbalanced propeller detected"
+  },
+  "zh": "Preflight Fail: 检测到螺旋桨不平衡",
+  "severity": "critical",
+  "category": "arming",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/failureDetectorCheck.cpp checkAndReport()（master）"
+ },
+ {
+  "id": "px4_v113_pf_esc_failure",
+  "match": {
+   "type": "exact",
+   "value": "Preflight Fail: ESC failure detected"
+  },
+  "zh": "Preflight Fail: 检测到电调故障",
+  "severity": "critical",
+  "category": "arming",
+  "source": "src/modules/commander/Arming/PreFlightCheck/checks/failureDetectorCheck.cpp（v1.13.3）"
+ },
+ {
+  "id": "px4_pf_return_switch",
+  "match": {
+   "type": "exact",
+   "value": "Preflight Fail: Return switch engaged"
+  },
+  "zh": "Preflight Fail: 返航开关已置位，请先拨离",
+  "severity": "critical",
+  "category": "arming",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/manualControlCheck.cpp checkAndReport()（master）"
+ },
+ {
+  "id": "px4_pf_kill_switch",
+  "match": {
+   "type": "exact",
+   "value": "Preflight Fail: Kill switch engaged"
+  },
+  "zh": "Preflight Fail: 急停（Kill）开关已置位，请先解除",
+  "severity": "critical",
+  "category": "arming",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/manualControlCheck.cpp checkAndReport()（master）"
+ },
+ {
+  "id": "px4_pf_landing_gear_up",
+  "match": {
+   "type": "exact",
+   "value": "Preflight Fail: Landing gear switch set in UP position"
+  },
+  "zh": "Preflight Fail: 起落架开关处于收起（UP）位置",
+  "severity": "critical",
+  "category": "arming",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/manualControlCheck.cpp checkAndReport()（master 与 v1.13 同文）"
+ },
+ {
+  "id": "px4_pf_rc_min",
+  "match": {
+   "type": "regex",
+   "value": "^Preflight Fail: RC ERROR: RC(\\d+)_MIN < (\\d+)\\.?$"
+  },
+  "zh": "Preflight Fail: RC ERROR: RC{0}_MIN 小于 {1}，请重新校准遥控",
+  "severity": "critical",
+  "category": "arming",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/rcCalibrationCheck.cpp checkAndReport()（master 无句号，v1.13 带句号，合并）"
+ },
+ {
+  "id": "px4_pf_rc_max",
+  "match": {
+   "type": "regex",
+   "value": "^Preflight Fail: RC ERROR: RC(\\d+)_MAX > (\\d+)\\.?$"
+  },
+  "zh": "Preflight Fail: RC ERROR: RC{0}_MAX 大于 {1}，请重新校准遥控",
+  "severity": "critical",
+  "category": "arming",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/rcCalibrationCheck.cpp checkAndReport()（master 无句号，v1.13 带句号，合并）"
+ },
+ {
+  "id": "px4_pf_rc_trim_lt_min",
+  "match": {
+   "type": "regex",
+   "value": "^Preflight Fail: RC ERROR: RC(\\d+)_TRIM < MIN \\((\\d+)/(\\d+)\\)\\.?$"
+  },
+  "zh": "Preflight Fail: RC ERROR: RC{0}_TRIM 小于 MIN（{1}/{2}），请重新校准遥控",
+  "severity": "critical",
+  "category": "arming",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/rcCalibrationCheck.cpp checkAndReport()（master 无句号，v1.13 带句号，合并）"
+ },
+ {
+  "id": "px4_pf_power_module_missing",
+  "match": {
+   "type": "exact",
+   "value": "Preflight Fail: Power module not connected"
+  },
+  "zh": "Preflight Fail: 未连接电源模块",
+  "severity": "critical",
+  "category": "arming",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/powerCheck.cpp checkAndReport()（master）"
+ },
+ {
+  "id": "px4_pf_avionics_low",
+  "match": {
+   "type": "regex",
+   "value": "^Preflight Fail: Avionics Power low: ([0-9.]+) Volt$"
+  },
+  "zh": "Preflight Fail: 航电电源电压过低（{0} V）",
+  "severity": "critical",
+  "category": "arming",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/powerCheck.cpp checkAndReport()（master 与 v1.13 同文）"
+ },
+ {
+  "id": "px4_pf_power_redundancy",
+  "match": {
+   "type": "regex",
+   "value": "^Preflight Fail: Power redundancy not met: (\\d+) of (\\d+)$"
+  },
+  "zh": "Preflight Fail: 电源冗余不足（{0}/{1}）",
+  "severity": "critical",
+  "category": "arming",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/powerCheck.cpp checkAndReport()（master；格式串经 PRId32 拼接为 \"%d of %d\"）"
+ },
+ {
+  "id": "px4_pf_sdcard_missing",
+  "match": {
+   "type": "exact",
+   "value": "Preflight Fail: Missing FMU SD Card"
+  },
+  "zh": "Preflight Fail: 未检测到 FMU SD 卡",
+  "severity": "critical",
+  "category": "arming",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/sdcardCheck.cpp checkAndReport()（master）"
+ },
+ {
+  "id": "px4_pf_crash_dumps",
+  "match": {
+   "type": "exact",
+   "value": "Preflight Fail: Crash dumps present on SD"
+  },
+  "zh": "Preflight Fail: SD 卡中存在崩溃转储文件，请联系厂家排查",
+  "severity": "critical",
+  "category": "arming",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/sdcardCheck.cpp checkAndReport()（master）"
+ },
+ {
+  "id": "px4_pf_global_pos_required",
+  "match": {
+   "type": "exact",
+   "value": "Preflight Fail: Global position estimate required"
+  },
+  "zh": "Preflight Fail: 需要全球位置估计",
+  "severity": "critical",
+  "category": "arming",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/systemCheck.cpp checkAndReport()（master）"
+ },
+ {
+  "id": "px4_pf_home_required",
+  "match": {
+   "type": "exact",
+   "value": "Preflight Fail: Home position required"
+  },
+  "zh": "Preflight Fail: 需要设置 Home 点",
+  "severity": "critical",
+  "category": "arming",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/systemCheck.cpp checkAndReport()（master）"
+ },
+ {
+  "id": "px4_pf_safety_button",
+  "match": {
+   "type": "exact",
+   "value": "Preflight Fail: Press safety button first"
+  },
+  "zh": "Preflight Fail: 请先按下安全按钮",
+  "severity": "critical",
+  "category": "arming",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/systemCheck.cpp checkAndReport()（master）"
+ },
+ {
+  "id": "px4_pf_battery_unhealthy",
+  "match": {
+   "type": "exact",
+   "value": "Preflight Fail: Battery unhealthy"
+  },
+  "zh": "Preflight Fail: 电池不健康",
+  "severity": "critical",
+  "category": "arming",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/batteryCheck.cpp checkAndReport()（master）"
+ },
+ {
+  "id": "px4_pf_geofence_return_home",
+  "match": {
+   "type": "exact",
+   "value": "Preflight Fail: Geofence Return action requires valid home"
+  },
+  "zh": "Preflight Fail: 地理围栏返航动作需要有效的 Home 点",
+  "severity": "critical",
+  "category": "arming",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/geofenceCheck.cpp checkAndReport()（master）"
+ },
+ {
+  "id": "px4_pf_no_gcs_connection",
+  "match": {
+   "type": "exact",
+   "value": "Preflight Fail: No connection to the GCS"
+  },
+  "zh": "Preflight Fail: 无法连接地面站",
+  "severity": "warning",
+  "category": "arming",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/rcAndDataLinkCheck.cpp checkAndReport()（master）",
+  "note": "对应事件为 check_rc_dl_no_dllink（level 随模式动态变化）"
+ },
+ {
+  "id": "px4_pf_esc_telemetry_missing",
+  "match": {
+   "type": "exact",
+   "value": "Preflight Fail: ESC telemetry missing"
+  },
+  "zh": "Preflight Fail: 电调遥测数据缺失",
+  "severity": "critical",
+  "category": "arming",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/escCheck.cpp checkAndReport()（master）"
+ },
+ {
+  "id": "px4_pf_odid_missing",
+  "match": {
+   "type": "exact",
+   "value": "Preflight Fail: Open Drone ID system missing"
+  },
+  "zh": "Preflight Fail: 远程 ID（Open Drone ID）系统缺失",
+  "severity": "critical",
+  "category": "arming",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/openDroneIDCheck.cpp checkAndReport()（master）"
+ },
+ {
+  "id": "px4_pf_parachute_missing",
+  "match": {
+   "type": "exact",
+   "value": "Preflight Fail: Parachute system missing"
+  },
+  "zh": "Preflight Fail: 降落伞系统缺失",
+  "severity": "critical",
+  "category": "arming",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/parachuteCheck.cpp checkAndReport()（master）"
+ },
+ {
+  "id": "px4_vtol_fw_failure",
+  "match": {
+   "type": "exact",
+   "value": "VTOL fixed-wing system failure detected. Verify reason for failure, and reboot the vehicle once confirmed safe"
+  },
+  "zh": "检测到 VTOL 固定翼系统故障。请确认故障原因，确认安全后重新上电重启",
+  "severity": "critical",
+  "category": "arming",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/vtolCheck.cpp checkAndReport()（check_vtol_fixed_wing_system_failure）",
+  "note": "遗留 STATUSTEXT 为 tab 结尾已被 QGC 丢弃，此为事件全文"
+ },
+ {
+  "id": "px4_failsafe_enabled",
+  "match": {
+   "type": "regex",
+   "value": "^Failsafe enabled: (.+)$"
+  },
+  "zh": "Failsafe enabled: 已触发故障保护（原因：{0}）",
+  "severity": "critical",
+  "category": "mode",
+  "source": "src/modules/commander/state_machine_helper.cpp（v1.13.3）enable_failsafe()（commander_enable_failsafe）",
+  "note": "v1.13 时代事件与遗留文本；{0} 为失败原因（No manual control stick input / no datalink 等，保留英文）"
+ },
+ {
+  "id": "px4_sensor_failover",
+  "match": {
+   "type": "regex",
+   "value": "^(.+?) sensor #(\\d+) failure: (.+)$"
+  },
+  "zh": "{0} 传感器 #{1} 故障：{2}",
+  "severity": "emergency",
+  "category": "other",
+  "source": "src/modules/sensors/voted_sensors_update.cpp（sensor_failover）",
+  "note": "{0} 为传感器类型枚举描述（Baro/Mag/Accel/Gyro 等），保留英文；遗留 STATUSTEXT 形如 \"%s #%i fail: …\"（tab 结尾被 QGC 丢弃）"
+ },
+ {
+  "id": "px4_ekf_gnss_fusion_stopped",
+  "match": {
+   "type": "exact",
+   "value": "GNSS data fusion stopped"
+  },
+  "zh": "GNSS 数据融合已停止",
+  "severity": "warning",
+  "category": "other",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/estimatorCheck.cpp checkAndReport()（check_estimator_gnss_fusion_stopped）"
+ },
+ {
+  "id": "px4_ekf_gnss_spoofed",
+  "match": {
+   "type": "exact",
+   "value": "GNSS signal spoofed"
+  },
+  "zh": "GNSS 信号疑似被欺骗干扰",
+  "severity": "alert",
+  "category": "other",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/estimatorCheck.cpp checkAndReport()（check_estimator_gnss_warning_spoofing）"
+ },
+ {
+  "id": "px4_ekf_gnss_jammed",
+  "match": {
+   "type": "exact",
+   "value": "GNSS signal jammed"
+  },
+  "zh": "GNSS 信号疑似被压制干扰",
+  "severity": "alert",
+  "category": "other",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/estimatorCheck.cpp checkAndReport()（check_estimator_gnss_warning_jamming）"
+ },
+ {
+  "id": "px4_ekf_local_pos_lost",
+  "match": {
+   "type": "regex",
+   "value": "^Local position lost, GNSS check failed: (.+)$"
+  },
+  "zh": "本地位置丢失，GNSS 检查未通过：{0}",
+  "severity": "error",
+  "category": "other",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/estimatorCheck.cpp checkAndReport()（check_estimator_position_lost_gnss_reason）",
+  "note": "冒号前为完整分句而非短 Token，按整句翻译（见报告 Token 策略说明）"
+ },
+ {
+  "id": "px4_ekf_low_pos_accuracy",
+  "match": {
+   "type": "exact",
+   "value": "Position estimate has low accuracy"
+  },
+  "zh": "位置估计精度较低",
+  "severity": "warning",
+  "category": "other",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/estimatorCheck.cpp checkAndReport()（check_estimator_low_position_accuracy）",
+  "note": "事件 Error 级、遗留 mavlink_log_warning，此处按事件级别记录 error"
+ },
+ {
+  "id": "px4_ekf_pos_err_approaching_threshold",
+  "match": {
+   "type": "exact",
+   "value": "Estimated position error is approaching the failsafe threshold"
+  },
+  "zh": "位置估计误差正接近故障保护阈值",
+  "severity": "error",
+  "category": "other",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/estimatorCheck.cpp checkAndReport()（check_estimator_position_failure_imminent）"
+ },
+ {
+  "id": "px4_ekf_stop_compass_use",
+  "match": {
+   "type": "exact",
+   "value": "Stopping compass use"
+  },
+  "zh": "因罗盘数据异常，已停止使用罗盘",
+  "severity": "critical",
+  "category": "other",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/estimatorCheck.cpp checkAndReport()（check_estimator_mag_fault）"
+ },
+ {
+  "id": "px4_quadchute_transition_timeout",
+  "match": {
+   "type": "exact",
+   "value": "Quad-chute triggered due to transition timeout"
+  },
+  "zh": "Quad-chute 已触发：模式过渡超时",
+  "severity": "critical",
+  "category": "other",
+  "source": "src/modules/vtol_att_control/vtol_att_control_main.cpp（vtol_att_ctrl_quadchute_tout）"
+ },
+ {
+  "id": "px4_quadchute_min_alt",
+  "match": {
+   "type": "exact",
+   "value": "Quad-chute triggered due to minimum altitude breach"
+  },
+  "zh": "Quad-chute 已触发：低于最低高度",
+  "severity": "critical",
+  "category": "other",
+  "source": "src/modules/vtol_att_control/vtol_att_control_main.cpp（vtol_att_ctrl_quadchute_min_alt）"
+ },
+ {
+  "id": "px4_quadchute_alt_loss",
+  "match": {
+   "type": "exact",
+   "value": "Quad-chute triggered due to uncommanded descent detection"
+  },
+  "zh": "Quad-chute 已触发：检测到非指令下沉",
+  "severity": "critical",
+  "category": "other",
+  "source": "src/modules/vtol_att_control/vtol_att_control_main.cpp（vtol_att_ctrl_quadchute_alt_loss）"
+ },
+ {
+  "id": "px4_quadchute_trans_alt_loss",
+  "match": {
+   "type": "exact",
+   "value": "Quad-chute triggered due to loss of altitude during transition"
+  },
+  "zh": "Quad-chute 已触发：过渡过程掉高",
+  "severity": "critical",
+  "category": "other",
+  "source": "src/modules/vtol_att_control/vtol_att_control_main.cpp（vtol_att_ctrl_quadchute_trans_alt_err）"
+ },
+ {
+  "id": "px4_quadchute_max_pitch",
+  "match": {
+   "type": "exact",
+   "value": "Quad-chute triggered due to maximum pitch angle exceeded"
+  },
+  "zh": "Quad-chute 已触发：俯仰角超限",
+  "severity": "critical",
+  "category": "other",
+  "source": "src/modules/vtol_att_control/vtol_att_control_main.cpp（vtol_att_ctrl_quadchute_max_pitch）"
+ },
+ {
+  "id": "px4_quadchute_max_roll",
+  "match": {
+   "type": "exact",
+   "value": "Quad-chute triggered due to maximum roll angle exceeded"
+  },
+  "zh": "Quad-chute 已触发：横滚角超限",
+  "severity": "critical",
+  "category": "other",
+  "source": "src/modules/vtol_att_control/vtol_att_control_main.cpp（vtol_att_ctrl_quadchute_max_roll）"
+ },
+ {
+  "id": "px4_esc_offline",
+  "match": {
+   "type": "regex",
+   "value": "^ESC (\\d+) offline$"
+  },
+  "zh": "电调 {0} 离线",
+  "severity": "critical",
+  "category": "other",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/escCheck.cpp checkAndReport()（check_escs_offline）",
+  "note": "遗留文本 \"%soffline. %s\\t\"（tab 结尾被 QGC 丢弃）"
+ },
+ {
+  "id": "px4_motor_not_spinning",
+  "match": {
+   "type": "regex",
+   "value": "^Motor (\\d+) not spinning$"
+  },
+  "zh": "电机 {0} 未转动",
+  "severity": "critical",
+  "category": "other",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/escCheck.cpp checkAndReport()（check_esc_motor_not_spinning）",
+  "note": "遗留文本 \"Motor %d not spinning after arming\\t\""
+ },
+ {
+  "id": "px4_motor_undercurrent",
+  "match": {
+   "type": "regex",
+   "value": "^Motor (\\d+) undercurrent detected$"
+  },
+  "zh": "电机 {0} 电流偏低（可能螺旋桨松脱）",
+  "severity": "critical",
+  "category": "other",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/escCheck.cpp checkAndReport()（check_motor_undercurrent）",
+  "note": "遗留文本 \"Motor failure: Motor %d undercurrent detected\\t\""
+ },
+ {
+  "id": "px4_motor_overcurrent",
+  "match": {
+   "type": "regex",
+   "value": "^Motor (\\d+) overcurrent detected$"
+  },
+  "zh": "电机 {0} 电流过大",
+  "severity": "critical",
+  "category": "other",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/escCheck.cpp checkAndReport()（check_motor_overcurrent）",
+  "note": "遗留文本 \"Motor failure: Motor %d overcurrent detected\\t\""
+ },
+ {
+  "id": "px4_escs_not_all_armed",
+  "match": {
+   "type": "exact",
+   "value": "Not all ESCs are armed"
+  },
+  "zh": "电调未全部解锁，请立即降落检查",
+  "severity": "critical",
+  "category": "other",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/escCheck.cpp checkAndReport()（check_escs_not_all_armed）",
+  "note": "遗留文本 \"ESC failure: Not all ESCs are armed. Land now!\\t\""
+ },
+ {
+  "id": "px4_max_flight_time_seconds",
+  "match": {
+   "type": "regex",
+   "value": "^Approaching max flight time \\(system will switch to Return mode in (\\d+) seconds\\)$"
+  },
+  "zh": "接近最大飞行时间，系统将在 {0} 秒后自动返航",
+  "severity": "warning",
+  "category": "other",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/flightTimeCheck.cpp checkAndReport()（commander_max_flight_time_warning_seconds）",
+  "note": "另有 minutes 分钟变体（commander_max_flight_time_warning_minutes）与 \"Maximum flight time reached\"（check_flight_time_limit），未单独收录"
+ },
+ {
+  "id": "px4_wind_above_limit",
+  "match": {
+   "type": "regex",
+   "value": "^Wind speed is above limit \\(([0-9.]+) ?m/s\\)$"
+  },
+  "zh": "风速超过限制（{0} m/s）",
+  "severity": "warning",
+  "category": "other",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/windCheck.cpp checkAndReport()（check_wind_too_high）",
+  "note": "另有 \"Wind speed above limit …, landing advised\" 与 \"High wind speed detected …, landing advised\" 变体，未单独收录"
+ },
+ {
+  "id": "px4_airspeed_failure_disarmed",
+  "match": {
+   "type": "exact",
+   "value": "Airspeed sensor failure detected. Check connection and reboot"
+  },
+  "zh": "检测到空速计故障，请检查连接并重启",
+  "severity": "critical",
+  "category": "other",
+  "source": "src/modules/airspeed_selector/airspeed_selector_main.cpp（airspeed_selector_sensor_failure_disarmed）"
+ },
+ {
+  "id": "px4_airspeed_failure_advised",
+  "match": {
+   "type": "exact",
+   "value": "Airspeed sensor failure detected. Return mode is advised"
+  },
+  "zh": "检测到空速计故障，建议返航",
+  "severity": "critical",
+  "category": "other",
+  "source": "src/modules/airspeed_selector/airspeed_selector_main.cpp（airspeed_selector_sensor_failure）"
+ },
+ {
+  "id": "px4_airspeed_none_detected",
+  "match": {
+   "type": "exact",
+   "value": "No airspeed sensor detected, switching to non-airspeed mode"
+  },
+  "zh": "未检测到空速计，已切换到不依赖空速的模式",
+  "severity": "info",
+  "category": "other",
+  "source": "src/modules/airspeed_selector/airspeed_selector_main.cpp（airspeed_selector_switch）"
+ },
+ {
+  "id": "px4_low_battery",
+  "match": {
+   "type": "exact",
+   "value": "Low battery"
+  },
+  "zh": "电量低",
+  "severity": "critical",
+  "category": "battery",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/batteryCheck.cpp checkAndReport()（check_battery_low）",
+  "note": "遗留 STATUSTEXT \"Low battery\\t\" 与事件并存，QGC 只显示事件文本"
+ },
+ {
+  "id": "px4_critical_battery",
+  "match": {
+   "type": "exact",
+   "value": "Critical battery"
+  },
+  "zh": "电池电量危急",
+  "severity": "critical",
+  "category": "battery",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/batteryCheck.cpp checkAndReport()（check_battery_critical）"
+ },
+ {
+  "id": "px4_emergency_battery",
+  "match": {
+   "type": "exact",
+   "value": "Emergency battery level"
+  },
+  "zh": "电池电量达到紧急水平",
+  "severity": "emergency",
+  "category": "battery",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/batteryCheck.cpp checkAndReport()（check_battery_emergency）"
+ },
+ {
+  "id": "px4_battery_missing",
+  "match": {
+   "type": "regex",
+   "value": "^Battery (\\d+) missing$"
+  },
+  "zh": "电池 {0} 缺失",
+  "severity": "critical",
+  "category": "battery",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/batteryCheck.cpp checkAndReport()（check_battery_missing）"
+ },
+ {
+  "id": "px4_battery_disconnected",
+  "match": {
+   "type": "regex",
+   "value": "^Battery (\\d+) disconnected$"
+  },
+  "zh": "电池 {0} 已断开连接",
+  "severity": "emergency",
+  "category": "battery",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/batteryCheck.cpp checkAndReport()（check_battery_disconnected）"
+ },
+ {
+  "id": "px4_battery_charge_unknown_set_cells",
+  "match": {
+   "type": "regex",
+   "value": "^Battery (\\d+): charge unknown, set BAT\\1_N_CELLS$"
+  },
+  "zh": "电池 {0}：电量未知，请设置电池节数参数 BAT{0}_N_CELLS",
+  "severity": "critical",
+  "category": "battery",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/batteryCheck.cpp checkAndReport()（check_battery_cell_count_unknown）",
+  "note": "模板中两个 {1} 同指一个参数，正则用反向引用 \\1 合并为一个捕获组"
+ },
+ {
+  "id": "px4_battery_rem_flight_time_low",
+  "match": {
+   "type": "exact",
+   "value": "Remaining flight time low"
+  },
+  "zh": "预计剩余飞行时间不足",
+  "severity": "error",
+  "category": "battery",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/batteryCheck.cpp checkAndReport()（check_battery_rem_flight_time_low）"
+ },
+ {
+  "id": "px4_low_battery_shutdown",
+  "match": {
+   "type": "exact",
+   "value": "Dangerously low battery! Shutting system down"
+  },
+  "zh": "电池电量危险！系统即将关机",
+  "severity": "emergency",
+  "category": "battery",
+  "source": "src/modules/commander/Commander.cpp 低电压关机处理（commander_low_bat_shutdown）",
+  "note": "遗留文本为 \"Dangerously low battery! Shutting system down in 60 seconds\\t\"（tab 结尾被 QGC 丢弃）"
+ },
+ {
+  "id": "px4_v113_bat_low_return",
+  "match": {
+   "type": "exact",
+   "value": "Low battery level, return advised"
+  },
+  "zh": "电量低，建议返航",
+  "severity": "warning",
+  "category": "battery",
+  "source": "src/modules/commander/state_machine_helper.cpp（v1.13.3）warn_user_about_battery()（commander_bat_low）"
+ },
+ {
+  "id": "px4_v113_bat_critical_return",
+  "match": {
+   "type": "exact",
+   "value": "Critical battery level, return now"
+  },
+  "zh": "电量危急，请立即返航",
+  "severity": "critical",
+  "category": "battery",
+  "source": "src/modules/commander/state_machine_helper.cpp（v1.13.3）warn_user_about_battery()（commander_bat_crit）"
+ },
+ {
+  "id": "px4_v113_bat_critical_action",
+  "match": {
+   "type": "regex",
+   "value": "^Critical battery level, executing (.+?) in (\\d+) seconds$"
+  },
+  "zh": "电量危急，将在 {1} 秒后进入 {0}",
+  "severity": "critical",
+  "category": "battery",
+  "source": "src/modules/commander/state_machine_helper.cpp（v1.13.3）warn_user_about_battery()（commander_bat_crit_act）",
+  "note": "{0} 为模式枚举描述（Return/Land/Hold 等，保留英文）"
+ },
+ {
+  "id": "px4_v113_bat_dangerous_land",
+  "match": {
+   "type": "exact",
+   "value": "Dangerous battery level, land now"
+  },
+  "zh": "电量危险，请立即降落",
+  "severity": "emergency",
+  "category": "battery",
+  "source": "src/modules/commander/state_machine_helper.cpp（v1.13.3）warn_user_about_battery()（commander_bat_emerg）"
+ },
+ {
+  "id": "px4_v113_bat_failure",
+  "match": {
+   "type": "exact",
+   "value": "Battery failure detected, land and check battery"
+  },
+  "zh": "检测到电池故障，请降落并检查电池",
+  "severity": "emergency",
+  "category": "battery",
+  "source": "src/modules/commander/state_machine_helper.cpp（v1.13.3）warn_user_about_battery()（commander_bat_failure）"
+ },
+ {
+  "id": "px4_v112_bat_low_return",
+  "match": {
+   "type": "exact",
+   "value": "Low battery level! Return advised"
+  },
+  "zh": "电量低！建议返航",
+  "severity": "critical",
+  "category": "battery",
+  "source": "src/modules/commander/state_machine_helper.cpp（v1.12.0）warn_user_about_battery()"
+ },
+ {
+  "id": "px4_v112_bat_failure",
+  "match": {
+   "type": "exact",
+   "value": "Battery failure detected"
+  },
+  "zh": "检测到电池故障",
+  "severity": "emergency",
+  "category": "battery",
+  "source": "src/modules/commander/state_machine_helper.cpp（v1.12.0）warn_user_about_battery()"
+ },
+ {
+  "id": "px4_v112_bat_critical_exec_rtl",
+  "match": {
+   "type": "regex",
+   "value": "^Critical battery level!, executing RTL$"
+  },
+  "zh": "电量危急！正在执行返航",
+  "severity": "critical",
+  "category": "battery",
+  "source": "src/modules/commander/state_machine_helper.cpp（v1.12.0）warn_user_about_battery()",
+  "note": "v1.12 为 \"<标签>, <动作>\" 拼接式文本（\"%s, executing RTL\" % \"Critical battery level!\"，源码无整串字面量故用锚定 regex）；landing advised/landing 等其它动作变体未单独收录"
+ },
+ {
+  "id": "px4_v112_bat_dangerous_please_land",
+  "match": {
+   "type": "regex",
+   "value": "^Dangerous battery level!, please land!$"
+  },
+  "zh": "电量危险！请立即降落",
+  "severity": "emergency",
+  "category": "battery",
+  "source": "src/modules/commander/state_machine_helper.cpp（v1.12.0）warn_user_about_battery()",
+  "note": "v1.12 拼接式文本（\"%s, please land!\" % \"Dangerous battery level!\"）"
+ },
+ {
+  "id": "px4_switching_to_return",
+  "match": {
+   "type": "exact",
+   "value": "Switching to Return"
+  },
+  "zh": "正在切换到返航模式",
+  "severity": "info",
+  "category": "mode",
+  "source": "src/modules/commander/Commander.cpp（commander_rtl；故障保护或用户触发返航）"
+ },
+ {
+  "id": "px4_landing_current_pos",
+  "match": {
+   "type": "exact",
+   "value": "Landing at current position"
+  },
+  "zh": "正在当前位置降落",
+  "severity": "info",
+  "category": "mode",
+  "source": "src/modules/commander/Commander.cpp（commander_landing_current_pos）"
+ },
+ {
+  "id": "px4_landing_prec_land",
+  "match": {
+   "type": "exact",
+   "value": "Landing using precision landing"
+  },
+  "zh": "正在使用精确降落",
+  "severity": "info",
+  "category": "mode",
+  "source": "src/modules/commander/Commander.cpp（commander_landing_prec_land）",
+  "note": "遗留文本为 \"Precision landing\\t\"（tab 结尾被 QGC 丢弃）"
+ },
+ {
+  "id": "px4_pilot_takeover",
+  "match": {
+   "type": "exact",
+   "value": "Pilot took over using sticks"
+  },
+  "zh": "飞手已通过摇杆接管控制",
+  "severity": "info",
+  "category": "mode",
+  "source": "src/modules/commander/Commander.cpp（commander_rc_override）"
+ },
+ {
+  "id": "px4_rc_loss_switch_hold",
+  "match": {
+   "type": "exact",
+   "value": "Manual control lost: switching to Hold"
+  },
+  "zh": "Manual control lost: 遥控信号丢失，切换到 Hold（悬停）",
+  "severity": "info",
+  "category": "mode",
+  "source": "src/modules/commander/Commander.cpp（commander_rc_loss_hold_no_failsafe）",
+  "note": "Hold 为故障保护保持模式名，保留英文"
+ },
+ {
+  "id": "px4_mission_start_denied_no_mission",
+  "match": {
+   "type": "exact",
+   "value": "Mission start denied! No valid mission"
+  },
+  "zh": "Mission start denied: 无有效任务，无法开始任务",
+  "severity": "critical",
+  "category": "mode",
+  "source": "src/modules/commander/Commander.cpp（commander_mission_start_denied_no_mission）"
+ },
+ {
+  "id": "px4_modeswitch_unavailable",
+  "match": {
+   "type": "regex",
+   "value": "^Switching to mode '(.+)' is currently not possible$"
+  },
+  "zh": "当前无法切换到 {0} 模式",
+  "severity": "critical",
+  "category": "mode",
+  "source": "src/modules/commander/Commander.cpp 模式切换拒绝（commander_modeswitch_not_avail）",
+  "note": "@type append_health_and_arming_messages，汇总块可能附加健康明细；{0} 为模式枚举描述，保留英文"
+ },
+ {
+  "id": "px4_unsupported_auto_mode",
+  "match": {
+   "type": "exact",
+   "value": "Unsupported auto mode"
+  },
+  "zh": "不支持该自动（AUTO）模式",
+  "severity": "critical",
+  "category": "mode",
+  "source": "src/modules/commander/Commander.cpp（commander_unsupported_auto_mode）"
+ },
+ {
+  "id": "px4_mode_not_armable",
+  "match": {
+   "type": "exact",
+   "value": "Mode not suitable for arming"
+  },
+  "zh": "当前模式不允许解锁",
+  "severity": "error",
+  "category": "mode",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/modeCheck.cpp checkAndReport()（check_modes_cannot_takeoff）"
+ },
+ {
+  "id": "px4_mode_attitude_invalid",
+  "match": {
+   "type": "exact",
+   "value": "No valid attitude estimate"
+  },
+  "zh": "无有效姿态估计",
+  "severity": "error",
+  "category": "mode",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/modeCheck.cpp checkAndReport()（check_modes_attitude）"
+ },
+ {
+  "id": "px4_mode_no_local_pos",
+  "match": {
+   "type": "exact",
+   "value": "Navigation error: No valid position estimate"
+  },
+  "zh": "Navigation error: 无有效位置估计",
+  "severity": "error",
+  "category": "mode",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/modeCheck.cpp checkAndReport()（check_modes_local_pos）"
+ },
+ {
+  "id": "px4_mode_no_global_pos",
+  "match": {
+   "type": "exact",
+   "value": "Navigation error: No valid global position estimate"
+  },
+  "zh": "Navigation error: 无有效全球位置估计",
+  "severity": "error",
+  "category": "mode",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/modeCheck.cpp checkAndReport()（check_modes_global_pos）"
+ },
+ {
+  "id": "px4_mode_no_local_alt",
+  "match": {
+   "type": "exact",
+   "value": "Navigation error: No valid altitude estimate"
+  },
+  "zh": "Navigation error: 无有效高度估计",
+  "severity": "error",
+  "category": "mode",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/modeCheck.cpp checkAndReport()（check_modes_local_alt）"
+ },
+ {
+  "id": "px4_mode_no_mission",
+  "match": {
+   "type": "exact",
+   "value": "No valid mission available"
+  },
+  "zh": "无有效任务",
+  "severity": "error",
+  "category": "mode",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/modeCheck.cpp checkAndReport()（check_modes_mission）"
+ },
+ {
+  "id": "px4_offboard_no_local_pos",
+  "match": {
+   "type": "exact",
+   "value": "Offboard requires local position"
+  },
+  "zh": "Offboard 模式需要本地位置",
+  "severity": "error",
+  "category": "mode",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/offboardCheck.cpp checkAndReport()（check_modes_offboard_no_local_position）"
+ },
+ {
+  "id": "px4_offboard_signal_lost",
+  "match": {
+   "type": "exact",
+   "value": "No offboard signal"
+  },
+  "zh": "无 Offboard 信号",
+  "severity": "error",
+  "category": "mode",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/offboardCheck.cpp checkAndReport()（check_modes_offboard_signal_lost）"
+ },
+ {
+  "id": "px4_rc_regained",
+  "match": {
+   "type": "regex",
+   "value": "^Manual control regained after ([0-9.]+) s$"
+  },
+  "zh": "遥控信号恢复（中断 {0} 秒）",
+  "severity": "info",
+  "category": "mode",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/rcAndDataLinkCheck.cpp checkAndReport()（commander_rc_regained）"
+ },
+ {
+  "id": "px4_gcs_lost",
+  "match": {
+   "type": "exact",
+   "value": "Connection to ground control station lost"
+  },
+  "zh": "与地面站失去连接",
+  "severity": "warning",
+  "category": "mode",
+  "source": "src/modules/commander/Commander.cpp（commander_gcs_lost）",
+  "note": "遗留文本为 \"Connection to ground station lost\\t\"（tab 结尾被 QGC 丢弃）"
+ },
+ {
+  "id": "px4_gcs_regained",
+  "match": {
+   "type": "exact",
+   "value": "GCS connection regained"
+  },
+  "zh": "地面站连接已恢复",
+  "severity": "info",
+  "category": "mode",
+  "source": "src/modules/commander/Commander.cpp（commander_dl_regained）"
+ },
+ {
+  "id": "px4_mission_comp_lost",
+  "match": {
+   "type": "exact",
+   "value": "Connection to mission computer lost"
+  },
+  "zh": "与任务计算机失去连接",
+  "severity": "critical",
+  "category": "mode",
+  "source": "src/modules/commander/Commander.cpp（commander_mission_comp_lost）"
+ },
+ {
+  "id": "px4_mission_execute",
+  "match": {
+   "type": "exact",
+   "value": "Executing Mission"
+  },
+  "zh": "开始执行任务",
+  "severity": "info",
+  "category": "mission",
+  "source": "src/modules/navigator/mission_base.cpp（mission_execute）"
+ },
+ {
+  "id": "px4_mission_finished_landed",
+  "match": {
+   "type": "exact",
+   "value": "Mission finished, landed"
+  },
+  "zh": "任务完成，已降落",
+  "severity": "info",
+  "category": "mission",
+  "source": "src/modules/navigator/mission_base.cpp（mission_finished）"
+ },
+ {
+  "id": "px4_mission_finished_loitering",
+  "match": {
+   "type": "exact",
+   "value": "Mission finished, loitering"
+  },
+  "zh": "任务完成，悬停中",
+  "severity": "info",
+  "category": "mission",
+  "source": "src/modules/navigator/mission_base.cpp（mission_finished_loiter）"
+ },
+ {
+  "id": "px4_mission_no_valid_refuse_takeoff",
+  "match": {
+   "type": "exact",
+   "value": "No valid mission available, refusing takeoff"
+  },
+  "zh": "无有效任务，拒绝起飞",
+  "severity": "critical",
+  "category": "mission",
+  "source": "src/modules/navigator/mission_base.cpp（mission_not_valid_refuse）"
+ },
+ {
+  "id": "px4_mission_item_set_failed",
+  "match": {
+   "type": "exact",
+   "value": "Mission item could not be set"
+  },
+  "zh": "无法设置任务航点",
+  "severity": "critical",
+  "category": "mission",
+  "source": "src/modules/navigator/mission_base.cpp（mission_item_set_failed）"
+ },
+ {
+  "id": "px4_mission_waypoint_read_failed",
+  "match": {
+   "type": "regex",
+   "value": "^Waypoint (\\d+) could not be read from storage$"
+  },
+  "zh": "无法从存储读取航点 {0}",
+  "severity": "critical",
+  "category": "mission",
+  "source": "src/modules/navigator/mission_base.cpp（mission_failed_to_read_wp）"
+ },
+ {
+  "id": "px4_mission_climb_before_start",
+  "match": {
+   "type": "regex",
+   "value": "^Climb to ([0-9.]+) ?m above home$"
+  },
+  "zh": "爬升到 Home 点上方 {0} m 后开始任务",
+  "severity": "info",
+  "category": "mission",
+  "source": "src/modules/navigator/mission.cpp（mission_climb_before_start）"
+ },
+ {
+  "id": "px4_mission_no_pos_lock",
+  "match": {
+   "type": "exact",
+   "value": "Not yet ready for mission, no position lock"
+  },
+  "zh": "尚未完成定位，暂不能执行任务",
+  "severity": "info",
+  "category": "mission",
+  "source": "src/modules/navigator/mission_feasibility_checker.cpp（navigator_mis_no_pos_lock）"
+ },
+ {
+  "id": "px4_mission_gf_violation_wp",
+  "match": {
+   "type": "regex",
+   "value": "^Geofence violation for waypoint (\\d+)$"
+  },
+  "zh": "航点 {0} 超出地理围栏范围",
+  "severity": "critical",
+  "category": "mission",
+  "source": "src/modules/navigator/mission_feasibility_checker.cpp（navigator_mis_geofence_violation）"
+ },
+ {
+  "id": "px4_mission_gf_path_breach",
+  "match": {
+   "type": "regex",
+   "value": "^Geofence breach on path to waypoint (\\d+)$"
+  },
+  "zh": "飞往航点 {0} 的航线越过地理围栏",
+  "severity": "critical",
+  "category": "mission",
+  "source": "src/modules/navigator/mission_feasibility_checker.cpp（navigator_mis_geofence_path_violation）"
+ },
+ {
+  "id": "px4_reposition_outside_gf",
+  "match": {
+   "type": "exact",
+   "value": "Reposition is outside geofence"
+  },
+  "zh": "目标位置在地理围栏之外",
+  "severity": "critical",
+  "category": "mission",
+  "source": "src/modules/navigator/navigator_main.cpp（navigator_reposition_outside_geofence）"
+ },
+ {
+  "id": "px4_transition_descend",
+  "match": {
+   "type": "exact",
+   "value": "Transition to hover mode and descend"
+  },
+  "zh": "已过渡到多旋翼模式并开始下降",
+  "severity": "info",
+  "category": "mission",
+  "source": "src/modules/navigator/navigator_main.cpp（navigator_transition_descend）"
+ },
+ {
+  "id": "px4_mission_failure_heading",
+  "match": {
+   "type": "exact",
+   "value": "Mission failure: unable to reach heading within timeout"
+  },
+  "zh": "Mission failure: 超时未能转到目标航向",
+  "severity": "critical",
+  "category": "mission",
+  "source": "src/modules/navigator/navigator_main.cpp（navigator_mission_failure_heading）"
+ },
+ {
+  "id": "px4_terrain_collision_risk",
+  "match": {
+   "type": "exact",
+   "value": "Terrain collision risk, descent is stopped"
+  },
+  "zh": "存在地形碰撞风险，已停止下降",
+  "severity": "critical",
+  "category": "mission",
+  "source": "src/modules/navigator/navigator_main.cpp（navigator_terrain_collision_risk）"
+ },
+ {
+  "id": "px4_takeoff_hold_course",
+  "match": {
+   "type": "regex",
+   "value": "^Takeoff complete, continuing on course ([0-9.]+) deg$"
+  },
+  "zh": "起飞完成，保持航向 {0}° 飞行",
+  "severity": "info",
+  "category": "mission",
+  "source": "src/modules/navigator/takeoff.cpp（navigator_takeoff_hold_course）"
+ },
+ {
+  "id": "px4_takeoff_default_alt",
+  "match": {
+   "type": "regex",
+   "value": "^Using default takeoff altitude: ([0-9.]+) ?m$"
+  },
+  "zh": "使用默认起飞高度：{0} m",
+  "severity": "info",
+  "category": "mission",
+  "source": "src/modules/navigator/takeoff.cpp（navigator_takeoff_default_alt）",
+  "note": "冒号前为完整分句而非短 Token，按整句翻译（见报告 Token 策略说明）"
+ },
+ {
+  "id": "px4_rtl_start",
+  "match": {
+   "type": "regex",
+   "value": "^Return: start return at ([0-9.]+) ?m \\(([0-9.]+) ?m above destination\\)$"
+  },
+  "zh": "Return: 从 {0} m 高度开始返航（高于目的地 {1} m）",
+  "severity": "info",
+  "category": "mission",
+  "source": "src/modules/navigator/rtl_direct.cpp（vrtl_return_at）",
+  "note": "事件参数渲染的数值与单位间是否带空格因数值而异，正则已兼容两种形态"
+ },
+ {
+  "id": "px4_rtl_avoiding_gf",
+  "match": {
+   "type": "exact",
+   "value": "Return: avoiding geofence"
+  },
+  "zh": "Return: 正在绕避地理围栏",
+  "severity": "info",
+  "category": "mission",
+  "source": "src/modules/navigator/rtl_direct.cpp（rtl_avoiding_geofence）"
+ },
+ {
+  "id": "px4_rtl_no_avoidance_path",
+  "match": {
+   "type": "exact",
+   "value": "Return: no geofence avoidance path; flying directly"
+  },
+  "zh": "Return: 无地理围栏绕飞路径，将直接飞回",
+  "severity": "critical",
+  "category": "mission",
+  "source": "src/modules/navigator/rtl_direct.cpp（rtl_avoidance_runtime_fallback）"
+ },
+ {
+  "id": "px4_rtl_completed_loiter",
+  "match": {
+   "type": "exact",
+   "value": "Return: completed, loitering"
+  },
+  "zh": "Return: 返航完成，悬停中",
+  "severity": "info",
+  "category": "mission",
+  "source": "src/modules/navigator/rtl_direct.cpp（rtl_completed_loiter）"
+ },
+ {
+  "id": "px4_rtl_land_destination",
+  "match": {
+   "type": "exact",
+   "value": "Return: land at destination"
+  },
+  "zh": "Return: 返航到达，正在目的地降落",
+  "severity": "info",
+  "category": "mission",
+  "source": "src/modules/navigator/rtl_direct.cpp（rtl_land_at_destination）"
+ },
+ {
+  "id": "px4_rtl_cannot_follow_mission",
+  "match": {
+   "type": "exact",
+   "value": "Return: cannot follow the mission; flying directly"
+  },
+  "zh": "Return: 无法沿任务航线返航，将直接飞回",
+  "severity": "critical",
+  "category": "mission",
+  "source": "src/modules/navigator/rtl.cpp（rtl_mission_executor_failed）"
+ },
+ {
+  "id": "px4_rtl_land_item_read_failed",
+  "match": {
+   "type": "exact",
+   "value": "Mission land item could not be read"
+  },
+  "zh": "无法读取任务中的降落航点",
+  "severity": "critical",
+  "category": "mission",
+  "source": "src/modules/navigator/rtl.cpp（rtl_failed_to_read_land_item）"
+ },
+ {
+  "id": "px4_rtl_mission_land_climb",
+  "match": {
+   "type": "regex",
+   "value": "^Return mission landing: climb to ([0-9.]+) ?m$"
+  },
+  "zh": "Return mission landing: 返航爬升到 {0} m 后沿任务航线降落",
+  "severity": "info",
+  "category": "mission",
+  "source": "src/modules/navigator/rtl_direct_mission_land.cpp（rtl_mission_land_climb）"
+ },
+ {
+  "id": "px4_rtl_avoidance_budget",
+  "match": {
+   "type": "regex",
+   "value": "^Geofence too large for Return avoidance \\(needs (\\d+) of (\\d+) nodes\\), Return will fly directly$"
+  },
+  "zh": "地理围栏过大，无法规划返航绕飞路径（需要 {0}/{1} 个节点），将直接飞回",
+  "severity": "warning",
+  "category": "mission",
+  "source": "src/modules/navigator/navigator_main.cpp（rtl_avoidance_budget_exceeded）"
+ },
+ {
+  "id": "px4_gf_update_failed",
+  "match": {
+   "type": "exact",
+   "value": "Geofence update failed, previous fence still active"
+  },
+  "zh": "地理围栏更新失败，仍沿用原围栏",
+  "severity": "critical",
+  "category": "mission",
+  "source": "src/modules/navigator/geofence.cpp（navigator_geofence_update_failed）"
+ },
+ {
+  "id": "px4_gf_load_failed",
+  "match": {
+   "type": "exact",
+   "value": "Geofence load failed, fence is not active"
+  },
+  "zh": "地理围栏加载失败，围栏未启用",
+  "severity": "critical",
+  "category": "mission",
+  "source": "src/modules/navigator/geofence.cpp（navigator_geofence_load_failed）"
+ },
+ {
+  "id": "px4_gf_violation_distance",
+  "match": {
+   "type": "exact",
+   "value": "Geofence violation: exceeding maximum distance to Home"
+  },
+  "zh": "Geofence violation: 距 Home 点距离超出上限",
+  "severity": "error",
+  "category": "mission",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/geofenceCheck.cpp checkAndReport()（check_gf_violation_max_hor_dist）"
+ },
+ {
+  "id": "px4_gf_violation_altitude",
+  "match": {
+   "type": "exact",
+   "value": "Geofence violation: exceeding maximum altitude above Home"
+  },
+  "zh": "Geofence violation: 相对 Home 点高度超出上限",
+  "severity": "error",
+  "category": "mission",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/geofenceCheck.cpp checkAndReport()（check_gf_violation_max_alt）"
+ },
+ {
+  "id": "px4_gf_violation_custom",
+  "match": {
+   "type": "exact",
+   "value": "Geofence violation: approaching or outside geofence"
+  },
+  "zh": "Geofence violation: 正在接近或已越出地理围栏",
+  "severity": "error",
+  "category": "mission",
+  "source": "src/modules/commander/HealthAndArmingChecks/checks/geofenceCheck.cpp checkAndReport()（check_gf_violation_custom_gf）"
+ }
+]
