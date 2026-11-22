@@ -53,6 +53,10 @@ jobs:
         with:
           preset: Linux
 
+      # i18n regression gate: fails the release if zh-CN coverage regressed
+      - name: i18n regression gate
+        run: python3 tools/i18n/check_zhcn.py
+
       - name: Build
         uses: ./.github/actions/cmake-build
 
@@ -125,6 +129,11 @@ jobs:
             -DQGC_BUILD_PORTABLE_TESTS=OFF
             -DQGC_ENABLE_GST_VIDEOSTREAMING=ON
             -DQGC_CPACK_GENERATOR=NSIS
+
+      # i18n regression gate: fails the release if zh-CN coverage regressed
+      - name: i18n regression gate
+        shell: cmd
+        run: python tools\i18n\check_zhcn.py
 
       - name: Build
         uses: ./.github/actions/cmake-build
