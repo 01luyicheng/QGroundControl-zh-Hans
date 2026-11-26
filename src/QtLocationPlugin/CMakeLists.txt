@@ -23,6 +23,8 @@ qt_add_plugin(QGCLocation
     Providers/MapProvider.h
     Providers/TianDiTuProvider.cpp
     Providers/TianDiTuProvider.h
+    Providers/AMapProvider.cpp
+    Providers/AMapProvider.h
     QGCCachedTileSet.cpp
     QGCCachedTileSet.h
     QGCCacheTile.h
