@@ -479,4 +479,72 @@ QGeoCoordinate interpolateAtDistance(const QGeoCoordinate &from, const QGeoCoord
     return QGeoCoordinate(lat, lon, alt);
 }
 
+namespace {
+// Krasovsky 1940 ellipsoid (China 1954 datum) constants used by GCJ-02.
+constexpr double kGcj02A = 6378245.0;
+constexpr double kGcj02Ee = 0.00669342162296594323;
+constexpr double kPi = 3.14159265358979323846;
+
+double gcj02TransformLat(double x, double y)
+{
+    double ret = -100.0 + 2.0 * x + 3.0 * y + 0.2 * y * y + 0.1 * x * y + 0.2 * std::sqrt(std::fabs(x));
+    ret += (20.0 * std::sin(6.0 * x * kPi) + 20.0 * std::sin(2.0 * x * kPi)) * 2.0 / 3.0;
+    ret += (20.0 * std::sin(y * kPi) + 40.0 * std::sin(y / 3.0 * kPi)) * 2.0 / 3.0;
+    ret += (160.0 * std::sin(y / 12.0 * kPi) + 320.0 * std::sin(y * kPi / 30.0)) * 2.0 / 3.0;
+    return ret;
+}
+
+double gcj02TransformLon(double x, double y)
+{
+    double ret = 300.0 + x + 2.0 * y + 0.1 * x * x + 0.1 * x * y + 0.1 * std::sqrt(std::fabs(x));
+    ret += (20.0 * std::sin(6.0 * x * kPi) + 20.0 * std::sin(2.0 * x * kPi)) * 2.0 / 3.0;
+    ret += (20.0 * std::sin(x * kPi) + 40.0 * std::sin(x / 3.0 * kPi)) * 2.0 / 3.0;
+    ret += (150.0 * std::sin(x / 12.0 * kPi) + 300.0 * std::sin(x / 30.0 * kPi)) * 2.0 / 3.0;
+    return ret;
+}
+
+bool gcj02OutOfChina(double lat, double lon)
+{
+    return lon < 72.004 || lon > 137.8347 || lat < 0.8293 || lat > 55.8271;
+}
+} // namespace
+
+QGeoCoordinate QGCGeo::wgs84ToGcj02(const QGeoCoordinate& wgs84)
+{
+    const double lat = wgs84.latitude();
+    const double lon = wgs84.longitude();
+    if (gcj02OutOfChina(lat, lon)) {
+        return wgs84;
+    }
+
+    const double dLat = gcj02TransformLat(lon - 105.0, lat - 35.0);
+    const double dLon = gcj02TransformLon(lon - 105.0, lat - 35.0);
+
+    const double radLat = lat * kPi / 180.0;
+    const double magic = std::sin(radLat);
+    const double magic2 = 1.0 - kGcj02Ee * magic * magic;
+    const double sqrtMagic = std::sqrt(magic2);
+
+    const double dLatDeg = (dLat * 180.0) / ((kGcj02A * (1.0 - kGcj02Ee)) / (magic2 * sqrtMagic) * kPi);
+    const double dLonDeg = (dLon * 180.0) / (kGcj02A / (sqrtMagic * std::cos(radLat)) * kPi);
+
+    return QGeoCoordinate(lat + dLatDeg, lon + dLonDeg, wgs84.altitude());
+}
+
+QGeoCoordinate QGCGeo::gcj02ToWgs84(const QGeoCoordinate& gcj02)
+{
+    // Approximate inverse: iterate from the GCJ-02 point toward WGS-84.
+    QGeoCoordinate wgs = gcj02;
+    for (int i = 0; i < 10; ++i) {
+        const QGeoCoordinate delta = wgs84ToGcj02(wgs);
+        const double dLat = gcj02.latitude() - delta.latitude();
+        const double dLon = gcj02.longitude() - delta.longitude();
+        wgs = QGeoCoordinate(wgs.latitude() + dLat, wgs.longitude() + dLon, gcj02.altitude());
+        if (std::fabs(dLat) < 1e-9 && std::fabs(dLon) < 1e-9) {
+            break;
+        }
+    }
+    return wgs;
+}
+
 } // namespace QGCGeo

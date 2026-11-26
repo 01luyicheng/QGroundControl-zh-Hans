@@ -217,4 +217,17 @@ QList<QGeoCoordinate> interpolatePath(const QGeoCoordinate &from, const QGeoCoor
 /// @note Useful for midpoint: interpolateAtDistance(from, to, geodesicDistance(from, to) / 2)
 QGeoCoordinate interpolateAtDistance(const QGeoCoordinate &from, const QGeoCoordinate &to, double distance);
 
+// ============================================================================
+// GCJ-02 (China National Geodetic Coordinate System, "Mars Coordinates")
+// ============================================================================
+
+/// Convert a WGS-84 coordinate to GCJ-02 ("Mars coordinates") used by Chinese
+/// map tile providers such as AMap (Gaode) and Tencent.
+/// Coordinates outside China are returned unchanged (no offset applied).
+QGeoCoordinate wgs84ToGcj02(const QGeoCoordinate& wgs84);
+
+/// Convert a GCJ-02 ("Mars coordinates") coordinate back to WGS-84.
+/// Coordinates outside China are returned unchanged.
+QGeoCoordinate gcj02ToWgs84(const QGeoCoordinate& gcj02);
+
 } // namespace QGCGeo
