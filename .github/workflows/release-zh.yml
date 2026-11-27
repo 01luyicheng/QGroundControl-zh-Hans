@@ -16,15 +16,14 @@ concurrency:
   group: release-zh-${{ inputs.tag || github.ref_name }}
   cancel-in-progress: false
 
-permissions: {}   # least privilege; release upload jobs opt in below
+permissions:
+  contents: write   # gh release create/uploads assets
 
 jobs:
   linux:
     name: Linux x86_64 AppImage
     runs-on: ubuntu-24.04
     timeout-minutes: 150
-    permissions:
-      contents: write   # gh release create/uploads assets
     defaults:
       run:
         shell: bash
@@ -107,8 +106,6 @@ jobs:
     needs: linux            # serialize release creation; windows uploads to the release linux created
     runs-on: windows-2022    # hosted image ships MSVC 2022 and NSIS; no install-dependencies needed
     timeout-minutes: 150
-    permissions:
-      contents: write   # gh release upload assets
     defaults:
       run:
         shell: cmd
