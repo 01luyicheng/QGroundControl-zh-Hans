@@ -10,12 +10,14 @@
 #include <QtCore/QElapsedTimer>
 #include <QtCore/QEvent>
 #include <QtCore/QHash>
+#include <QtCore/QLocale>
 #include <QtCore/QMetaMethod>
 #include <QtCore/QRegularExpression>
 #include <QtCore/QScopeGuard>
 #include <QtCore/QSet>
 #include <QtCore/QSettings>
 #include <QtCore/QStandardPaths>
+#include <QtCore/QTranslator>
 #include <QtTest/QSignalSpy>
 #include <QtTest/QTest>
 
@@ -789,6 +791,19 @@ void UnitTest::initTestCase()
 
     // Install the capture wrapper on top of QTest's handler
     s_qtestHandler.store(qInstallMessageHandler(testCaptureHandler), std::memory_order_release);
+
+    // Force English source strings during unit tests. The full QGCApplication runs
+    // QGCApplication::setLanguage() before any test executes, which installs the
+    // qgc_source_/qt_ translators for the UI locale (this fork defaults to Chinese
+    // when no language setting is stored, and unit tests clear settings on boot).
+    // Unit tests hard-code English assertions, so pin the C locale and unload every
+    // installed translator so tr() returns the untranslated (English) source text.
+    // This is scoped to the test process only; normal application startup is unaffected.
+    QLocale::setDefault(QLocale::c());
+    const auto &installedTranslators = QCoreApplication::translators();
+    for (QTranslator *translator : installedTranslators) {
+        QCoreApplication::removeTranslator(translator);
+    }
 }
 
 void UnitTest::cleanupTestCase()
