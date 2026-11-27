@@ -17,8 +17,7 @@ concurrency:
   cancel-in-progress: false
 
 permissions:
-# zizmor:ignore=excessive-permissions
-  contents: write   # gh release create/uploads assets
+  contents: write   # zizmor:ignore=excessive-permissions (gh release create/uploads assets)
 
 jobs:
   linux:
