@@ -509,7 +509,7 @@ bool gcj02OutOfChina(double lat, double lon)
 }
 } // namespace
 
-QGeoCoordinate QGCGeo::wgs84ToGcj02(const QGeoCoordinate& wgs84)
+QGeoCoordinate wgs84ToGcj02(const QGeoCoordinate& wgs84)
 {
     const double lat = wgs84.latitude();
     const double lon = wgs84.longitude();
@@ -531,7 +531,7 @@ QGeoCoordinate QGCGeo::wgs84ToGcj02(const QGeoCoordinate& wgs84)
     return QGeoCoordinate(lat + dLatDeg, lon + dLonDeg, wgs84.altitude());
 }
 
-QGeoCoordinate QGCGeo::gcj02ToWgs84(const QGeoCoordinate& gcj02)
+QGeoCoordinate gcj02ToWgs84(const QGeoCoordinate& gcj02)
 {
     // Approximate inverse: iterate from the GCJ-02 point toward WGS-84.
     QGeoCoordinate wgs = gcj02;
