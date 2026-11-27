@@ -16,14 +16,15 @@ concurrency:
   group: release-zh-${{ inputs.tag || github.ref_name }}
   cancel-in-progress: false
 
-permissions:
-  contents: write   # gh release create uploads assets
+permissions: {}   # least privilege; release upload jobs opt in below
 
 jobs:
   linux:
     name: Linux x86_64 AppImage
     runs-on: ubuntu-24.04
     timeout-minutes: 150
+    permissions:
+      contents: write   # gh release create/uploads assets
     defaults:
       run:
         shell: bash
@@ -91,7 +92,7 @@ jobs:
           - 本仓库在上游基础上完善 zh_CN 翻译,并为部分硬编码 UI 字符串补充了 qsTr()/tr() 包裹;详见 README.zh-CN.md
           - Linux:下载 AppImage,chmod +x 后直接运行
           EOF
-          appimage=$(ls "$RUNNER_TEMP"/build/QGroundControl-*.AppImage | head -n1)
+          appimage=$(find "$RUNNER_TEMP/build" -name 'QGroundControl-*.AppImage' | head -n1)
           sha256sum "$appimage" > "$appimage.sha256"
           if gh release view "$TAG" >/dev/null 2>&1; then
             gh release upload "$TAG" "$appimage" "$appimage.sha256" --clobber
@@ -106,6 +107,8 @@ jobs:
     needs: linux            # serialize release creation; windows uploads to the release linux created
     runs-on: windows-2022    # hosted image ships MSVC 2022 and NSIS; no install-dependencies needed
     timeout-minutes: 150
+    permissions:
+      contents: write   # gh release upload assets
     defaults:
       run:
         shell: cmd
@@ -177,7 +180,7 @@ jobs:
           - 本仓库在上游基础上完善 zh_CN 翻译,并为部分硬编码 UI 字符串补充了 qsTr()/tr() 包裹;详见 README.zh-CN.md
           - Windows:下载 QGroundControl-installer-AMD64.exe 安装(未签名,SmartScreen 提示时选择保留即可)
           EOF
-          installer=$(ls "$RUNNER_TEMP"/build/QGroundControl-installer-*.exe | head -n1)
+          installer=$(find "$RUNNER_TEMP/build" -name 'QGroundControl-installer-*.exe' | head -n1)
           sha256sum "$installer" > "$installer.sha256"
           if gh release view "$TAG" >/dev/null 2>&1; then
             gh release upload "$TAG" "$installer" "$installer.sha256" --clobber
