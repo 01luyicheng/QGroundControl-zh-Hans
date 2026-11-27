@@ -13,7 +13,6 @@
 #endif
 
 #include <QtCore/QStandardPaths>
-#include <QtCore/QCoreApplication>
 #include <QtCore/QDir>
 #include <QtCore/QSettings>
 
