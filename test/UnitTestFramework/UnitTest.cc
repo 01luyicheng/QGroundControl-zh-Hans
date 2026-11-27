@@ -796,14 +796,11 @@ void UnitTest::initTestCase()
     // QGCApplication::setLanguage() before any test executes, which installs the
     // qgc_source_/qt_ translators for the UI locale (this fork defaults to Chinese
     // when no language setting is stored, and unit tests clear settings on boot).
-    // Unit tests hard-code English assertions, so pin the C locale and unload every
-    // installed translator so tr() returns the untranslated (English) source text.
+    // Unit tests hard-code English assertions, so pin the C locale; the language
+    // early-access path returns English for --unittest runs (see AppSettings.cc),
+    // so no Chinese translators get installed and tr() returns English source text.
     // This is scoped to the test process only; normal application startup is unaffected.
     QLocale::setDefault(QLocale::c());
-    const auto &installedTranslators = QCoreApplication::translators();
-    for (QTranslator *translator : installedTranslators) {
-        QCoreApplication::removeTranslator(translator);
-    }
 }
 
 void UnitTest::cleanupTestCase()

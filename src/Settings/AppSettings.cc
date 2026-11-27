@@ -13,6 +13,7 @@
 #endif
 
 #include <QtCore/QStandardPaths>
+#include <QtCore/QCoreApplication>
 #include <QtCore/QDir>
 #include <QtCore/QSettings>
 
@@ -402,6 +403,13 @@ QLocale::Language AppSettings::_qLocaleLanguageEarlyAccess(void)
     QSettings settings;
 
     QLocale::Language localeLanguage;
+
+    // Unit tests run inside the full QGCApplication but assert on English source
+    // strings. Do not default them to Chinese (or honor a stored Chinese locale),
+    // otherwise setLanguage() installs the zh translations and tr() returns Chinese.
+    if (QCoreApplication::arguments().contains(QStringLiteral("--unittest"))) {
+        return QLocale::English;
+    }
 
     // Fork: default to Chinese on fresh install (missing setting) as documented in README.zh-CN.md. Note that a
     // stored value of 0 (System) is still respected since the key exists in that case.
