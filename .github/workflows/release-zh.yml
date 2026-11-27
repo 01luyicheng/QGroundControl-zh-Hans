@@ -1,7 +1,7 @@
-name: Release zh-Hans
-
 # zizmor:ignore=excessive-permissions
 # gh release create/upload requires contents: write; this is intentional.
+
+name: Release zh-Hans
 
 # Push a tag like zh-v1.28.8 to build Linux AppImage + Windows installer and publish a zh-Hans release.
 on:
@@ -20,7 +20,7 @@ concurrency:
   cancel-in-progress: false
 
 permissions:
-  contents: write   # gh release create/uploads assets (zizmor:ignore above)
+  contents: write   # gh release create/uploads assets
 
 jobs:
   linux:
