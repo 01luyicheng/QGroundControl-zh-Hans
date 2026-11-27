@@ -78,6 +78,7 @@ tools/
 │   └── yamlfmt.yaml         # yamlfmt YAML formatter trial (manual hook)
 ├── debuggers/               # Debugger formatters, profiling, Android memory capture, Valgrind suppressions
 ├── generators/              # Code generation (MAVLink enums, config/settings QML)
+├── i18n/                    # i18n helpers: ts baseline, changed-placeholder checks
 ├── moccache/                # Content-addressed cache for Qt moc (AUTOMOC wrapper)
 ├── qgc_tools/               # Shared policy: Python environment, configure presets, Docker variants
 ├── setup/                   # Environment setup scripts
