@@ -409,7 +409,7 @@ QLocale::Language AppSettings::_qLocaleLanguageEarlyAccess(void)
     // Note: arguments are of the form "--unittest", "--unittest=TestName" or
     // "--unittest-stress", so match on a prefix rather than exact equality.
     const QStringList args = QCoreApplication::arguments();
-    for (const QString &arg : args) {
+    for (const QString& arg : args) {
         if (arg.startsWith(QStringLiteral("--unittest"))) {
             return QLocale::English;
         }
