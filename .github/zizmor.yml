@@ -2,6 +2,11 @@ rules:
   # Runners cannot load $/ actions from a fork PR's merge commit, so local actions stay checkout-backed ./ paths.
   self-repository:
     disable: true
+  # release-zh.yml needs contents: write to create/upload releases; the audit's blanket
+  # "overly broad" warning does not apply to a release workflow that publishes assets.
+  excessive-permissions:
+    ignore:
+      - .github/workflows/release-zh.yml
   # Third-party actions are pinned to a commit SHA; GitHub's own keep version tags
   # (actions/README.md#external-action-reference-policy). ref-pin accepts any ref, a branch
   # included: test_workflow_security_policy.py requires the version tag.
