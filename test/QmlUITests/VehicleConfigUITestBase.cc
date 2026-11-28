@@ -59,7 +59,9 @@ void VehicleConfigUITestBase::navigateToConfigureView()
 
 QQuickItem *VehicleConfigUITestBase::clickSidebarButton(const QString &objectName)
 {
-    QQuickItem *btn = findVisibleItem(_rootItem, objectName, 3000);
+    // 10s: a language switch retranslates the QML tree and rebuilds the sidebar; on the
+    // slower offscreen Linux/macOS runners that rebuild can exceed the old 3s timeout.
+    QQuickItem *btn = findVisibleItem(_rootItem, objectName, 10000);
     if (!btn) {
         QTest::qFail(qPrintable(QStringLiteral("Sidebar button not found: %1").arg(objectName)), __FILE__, __LINE__);
         return nullptr;

@@ -125,7 +125,9 @@ void PX4VehicleConfigUITest::_testSearchMatchesComponentKeywords()
                         };
                         for (const auto& [query, componentName] : queryToComponent) {
                             searchField->setProperty("text", query);
-                            QQuickItem* const componentButton = findItem(_rootItem, componentName);
+                            // 8s wait: after a language switch the component list rebuilds asynchronously
+                            // and the item may not exist yet on the slower offscreen runners.
+                            QQuickItem* const componentButton = findVisibleItem(_rootItem, componentName, 8000);
                             QVERIFY2(componentButton, qPrintable(componentName));
                             QTRY_VERIFY2(componentButton->isVisible(), qPrintable(query));
                             QQuickItem* const tuningButton =
