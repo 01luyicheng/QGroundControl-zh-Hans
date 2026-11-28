@@ -404,20 +404,17 @@ QLocale::Language AppSettings::_qLocaleLanguageEarlyAccess(void)
     QLocale::Language localeLanguage;
 
     // Unit tests run inside the full QGCApplication but assert on English source
-    // strings. Do not default them to Chinese (or honor a stored Chinese locale),
-    // otherwise setLanguage() installs the zh translations and tr() returns Chinese.
-    // Note: arguments are of the form "--unittest", "--unittest=TestName" or
-    // "--unittest-stress", so match on a prefix rather than exact equality.
-    const QStringList args = QCoreApplication::arguments();
-    for (const QString& arg : args) {
-        if (arg.startsWith(QStringLiteral("--unittest"))) {
-            return QLocale::English;
-        }
-    }
-
-    // Fork: default to Chinese on fresh install (missing setting) as documented in README.zh-CN.md. Note that a
-    // stored value of 0 (System) is still respected since the key exists in that case.
+    // strings. The test harness clears settings on boot, so on a fresh install we
+    // default to English (not Chinese) so tr() returns English. A stored value —
+    // e.g. one the test itself writes when switching languages — is still respected
+    // below, so the UI language-switch tests keep working.
     if (!settings.contains(qLocaleLanguageName)) {
+        const QStringList args = QCoreApplication::arguments();
+        for (const QString& arg : args) {
+            if (arg.startsWith(QStringLiteral("--unittest"))) {
+                return QLocale::English;
+            }
+        }
         localeLanguage = QLocale::Chinese;
         settings.setValue(qLocaleLanguageName, localeLanguage);
         return localeLanguage;
